@@ -38,6 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate{
             MenuButton.action = #selector(menuButtonToggle)
         }
         
+        if let window = NSApplication.shared.windows.first{
+            window.close()
+        }
+        
     }
     @objc func menuButtonToggle(sender: AnyObject){
         if popOver.isShown{
