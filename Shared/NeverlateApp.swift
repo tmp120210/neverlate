@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate{
     var popOver = NSPopover()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let menuView = ContentView()
+        let menuView = WelcomeScreen()
         
         popOver.behavior = .transient
         popOver.animates = true
