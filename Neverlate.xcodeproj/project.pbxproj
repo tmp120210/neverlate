@@ -9,21 +9,24 @@
 /* Begin PBXBuildFile section */
 		13CE8D0B2693115100806010 /* NeverlateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF82693114F00806010 /* NeverlateApp.swift */; };
 		13CE8D0C2693115100806010 /* NeverlateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF82693114F00806010 /* NeverlateApp.swift */; };
-		13CE8D0D2693115100806010 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* ContentView.swift */; };
-		13CE8D0E2693115100806010 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* ContentView.swift */; };
+		13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
+		13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0F2693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 		13CE8D102693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
+		312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
+		312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		13CE8CF82693114F00806010 /* NeverlateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeverlateApp.swift; sourceTree = "<group>"; };
-		13CE8CF92693114F00806010 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		13CE8CF92693114F00806010 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		13CE8CFA2693115100806010 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13CE8CFF2693115100806010 /* Neverlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neverlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13CE8D022693115100806010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13CE8D072693115100806010 /* Neverlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neverlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13CE8D092693115100806010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13CE8D0A2693115100806010 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		312CD3EC26932B7B000CF3CD /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				13CE8CF82693114F00806010 /* NeverlateApp.swift */,
-				13CE8CF92693114F00806010 /* ContentView.swift */,
+				13CE8CF92693114F00806010 /* WelcomeScreen.swift */,
+				312CD3EC26932B7B000CF3CD /* Colors.xcassets */,
 				13CE8CFA2693115100806010 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -169,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13CE8D0F2693115100806010 /* Assets.xcassets in Resources */,
+				312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13CE8D102693115100806010 /* Assets.xcassets in Resources */,
+				312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CE8D0D2693115100806010 /* ContentView.swift in Sources */,
+				13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */,
 				13CE8D0B2693115100806010 /* NeverlateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -196,7 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CE8D0E2693115100806010 /* ContentView.swift in Sources */,
+				13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */,
 				13CE8D0C2693115100806010 /* NeverlateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
