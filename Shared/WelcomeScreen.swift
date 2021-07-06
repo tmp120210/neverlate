@@ -35,11 +35,11 @@ struct WelcomeScreen: View {
             .frame(width: 320, height: 540)
             .padding(.horizontal, 16.0)
             .padding(.vertical, 32.0)
-        }.background(Color.white)
+        }.background(Color("appBackground"))
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct WelcomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeScreen()
     }
