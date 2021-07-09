@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import EventKit
 
 struct AccessScreen: View {
+    let eventStore = EKEventStore()
     @Binding var show: String
     var body : some View {
         VStack() {
@@ -24,7 +26,17 @@ struct AccessScreen: View {
                     .multilineTextAlignment(.center)
             }
             Spacer()
-            Button(action: {self.show = "allow"}, label: {
+            Button(action: {
+                eventStore.requestAccess(to: .event, completion:
+                      {(granted: Bool, error: Error?) -> Void in
+                        if granted, error == nil {
+                            self.show = "allow"
+                          } else {
+                            print("Access denied")
+                          }
+                    })
+                
+            }, label: {
                 Text("Allow access")
                     .fontWeight(.medium)
                     .font(.system(size: 17))

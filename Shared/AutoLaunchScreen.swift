@@ -24,7 +24,7 @@ struct AutoLaunchScreen: View {
             }
             Spacer()
             VStack(spacing: 22.0){
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {self.show = "meeting"}, label: {
                     Text("Allow and continue")
                         .fontWeight(.medium)
                         .font(.system(size: 17))
@@ -34,7 +34,7 @@ struct AutoLaunchScreen: View {
                 })
                 .cornerRadius(10)
                 .buttonStyle(PlainButtonStyle())
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {self.show = "meeting"}, label: {
                     Text("Skip")
                         .fontWeight(.regular)
                         .foregroundColor(Color("secondaryButton"))

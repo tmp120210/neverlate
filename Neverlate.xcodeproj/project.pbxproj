@@ -23,6 +23,8 @@
 		312CD3FD2695C256000CF3CD /* AccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FB2695C256000CF3CD /* AccessScreen.swift */; };
 		312CD3FF2695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */; };
 		312CD4002695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */; };
+		312CD40226970657000CF3CD /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
+		312CD40326970657000CF3CD /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,7 @@
 		312CD3F82695BF42000CF3CD /* CheckCalendarScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCalendarScreen.swift; sourceTree = "<group>"; };
 		312CD3FB2695C256000CF3CD /* AccessScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessScreen.swift; sourceTree = "<group>"; };
 		312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLaunchScreen.swift; sourceTree = "<group>"; };
+		312CD40126970657000CF3CD /* MeetingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,11 +76,12 @@
 			isa = PBXGroup;
 			children = (
 				13CE8CF82693114F00806010 /* NeverlateApp.swift */,
-				312CD3F52695BBB9000CF3CD /* Main.swift */,
-				13CE8CF92693114F00806010 /* WelcomeScreen.swift */,
-				312CD3F82695BF42000CF3CD /* CheckCalendarScreen.swift */,
 				312CD3FB2695C256000CF3CD /* AccessScreen.swift */,
 				312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */,
+				312CD3F82695BF42000CF3CD /* CheckCalendarScreen.swift */,
+				312CD3F52695BBB9000CF3CD /* Main.swift */,
+				312CD40126970657000CF3CD /* MeetingsList.swift */,
+				13CE8CF92693114F00806010 /* WelcomeScreen.swift */,
 				312CD3EC26932B7B000CF3CD /* Colors.xcassets */,
 				13CE8CFA2693115100806010 /* Assets.xcassets */,
 			);
@@ -210,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				312CD3F92695BF42000CF3CD /* CheckCalendarScreen.swift in Sources */,
+				312CD40226970657000CF3CD /* MeetingsList.swift in Sources */,
 				312CD3F62695BBB9000CF3CD /* Main.swift in Sources */,
 				13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */,
 				312CD3FF2695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,
@@ -223,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				312CD3FA2695BF42000CF3CD /* CheckCalendarScreen.swift in Sources */,
+				312CD40326970657000CF3CD /* MeetingsList.swift in Sources */,
 				312CD3F72695BBB9000CF3CD /* Main.swift in Sources */,
 				13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */,
 				312CD4002695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,

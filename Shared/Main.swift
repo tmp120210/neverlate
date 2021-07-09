@@ -20,6 +20,8 @@ struct Main: View{
                 AccessScreen(show: $show)
             case "allow":
                 AutoLaunchScreen(show: $show)
+            case "meeting":
+                MeetingsScreen(show: $show)
             default:
                 WelcomeScreen(show: $show)
             }
