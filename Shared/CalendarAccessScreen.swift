@@ -1,5 +1,5 @@
 //
-//  AccessScreen.swift
+//  CalendarAccessScreen.swift
 //  Neverlate
 //
 //  Created by Александр Северюхин on 07.07.2021.
@@ -8,9 +8,9 @@
 import SwiftUI
 import EventKit
 
-struct AccessScreen: View {
+struct CalendarAccessScreen: View {
     let eventStore = EKEventStore()
-    @Binding var show: String
+    @Binding var currentPage: String
     var body : some View {
         VStack() {
             Image("accessCalendar")
@@ -30,7 +30,7 @@ struct AccessScreen: View {
                 eventStore.requestAccess(to: .event, completion:
                       {(granted: Bool, error: Error?) -> Void in
                         if granted, error == nil {
-                            self.show = "allow"
+                            self.currentPage = "meeting"
                           } else {
                             print("Access denied")
                           }
@@ -54,8 +54,8 @@ struct AccessScreen: View {
     }
 }
 
-struct AccessScreen_Previews: PreviewProvider {
+struct CalendarAccessScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AccessScreen(show: .constant("access"))
+        CalendarAccessScreen(currentPage: .constant("access"))
     }
 }

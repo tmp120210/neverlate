@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UserNotifications
+import EventKit
 
 @main
 struct NeverlateApp: App {
@@ -25,7 +26,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popOver = NSPopover()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let menuView = Main()
+        let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
+        print(Date())
+        let menuView = NavigationContainer(currentPage: startScreen)
         UNUserNotificationCenter.current().delegate = self
         popOver.behavior = .transient
         popOver.animates = true
@@ -40,7 +43,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
             MenuButton.action = #selector(menuButtonToggle)
         }
-        
         if let window = NSApplication.shared.windows.first{
             window.close()
         }

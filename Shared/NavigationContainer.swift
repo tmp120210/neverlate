@@ -7,23 +7,21 @@
 
 import SwiftUI
 
-struct Main: View{
-    @State private var show = ""
+struct NavigationContainer: View{
+    @State var currentPage: String
     var body: some View {
         ZStack(){
-            switch show {
+            switch currentPage {
             case "welcome":
-                WelcomeScreen(show: $show)
-            case "calendar":
-                CalendarScreen(show: $show)
+                WelcomeScreen(currentPage: $currentPage)
             case "access":
-                AccessScreen(show: $show)
+                CalendarAccessScreen(currentPage: $currentPage)
             case "allow":
-                AutoLaunchScreen(show: $show)
+                AutoLaunchScreen(currentPage: $currentPage)
             case "meeting":
-                MeetingsScreen(show: $show)
+                MeetingsScreen(currentPage: $currentPage)
             default:
-                WelcomeScreen(show: $show)
+                WelcomeScreen(currentPage: $currentPage)
             }
             
         }
@@ -34,6 +32,6 @@ struct Main: View{
 
 struct Main_Previews: PreviewProvider {
     static var previews: some View {
-        Main()
+        NavigationContainer(currentPage: "welcome")
     }
 }

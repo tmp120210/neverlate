@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AutoLaunchScreen: View {
-    @Binding var show: String
+    @Binding var currentPage: String
     var body : some View {
         VStack() {
             Image("allowAccess")
@@ -24,7 +24,7 @@ struct AutoLaunchScreen: View {
             }
             Spacer()
             VStack(spacing: 22.0){
-                Button(action: {self.show = "meeting"}, label: {
+                Button(action: {self.currentPage = "meeting"}, label: {
                     Text("Allow and continue")
                         .fontWeight(.medium)
                         .font(.system(size: 17))
@@ -34,7 +34,7 @@ struct AutoLaunchScreen: View {
                 })
                 .cornerRadius(10)
                 .buttonStyle(PlainButtonStyle())
-                Button(action: {self.show = "meeting"}, label: {
+                Button(action: {self.currentPage = "meeting"}, label: {
                     Text("Skip")
                         .fontWeight(.regular)
                         .foregroundColor(Color("secondaryButton"))
@@ -53,6 +53,6 @@ struct AutoLaunchScreen: View {
 
 struct AutoLaunchScreen_Previews: PreviewProvider {
     static var previews: some View {
-        AutoLaunchScreen(show: .constant("auto"))
+        AutoLaunchScreen(currentPage: .constant("auto"))
     }
 }

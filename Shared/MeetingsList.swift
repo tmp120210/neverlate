@@ -9,24 +9,12 @@ import SwiftUI
 import EventKit
 import UserNotifications
 
-struct Meeting: Codable, Identifiable{
-    let id : String
-    let title: String
-    let startDate: Date
-    let endDate: Date
-    let url: String
-}
 
-struct Meetings: Identifiable {
-    let id = UUID()
-    let title: String
-}
 
 struct MeetingsScreen: View {
-    let eventStore = EKEventStore()
     @State var ongoing : [Meeting] = []
-    @State var meetings : [Meeting] = []
-    @Binding var show: String
+    @State var meetingDates : [MeetingDate] = []
+    @Binding var currentPage: String
     var body : some View {
         VStack() {
             VStack{
@@ -40,10 +28,10 @@ struct MeetingsScreen: View {
                 }
             }
             .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: 70, maxHeight: 70)
-            .background(Color("listBackground"))
+            .background(Color("emptyListBackground"))
             .cornerRadius(8)
-            List(meetings){meeting in
-                MeetingRow(meeting: meeting)
+            List(meetingDates){date in
+                DateRow(date: date.date, meetings: date.meetings)
             }
             .colorMultiply(Color("listBackground"))
             .cornerRadius(8)
@@ -60,46 +48,26 @@ struct MeetingsScreen: View {
                     print(error.localizedDescription)
                 }
             }
-            loadMeetings()
+            self.meetingDates = loadMeetings()
         }
     }
-    func loadMeetings(){
-        let calendar = Calendar.current
-        
-        let todayComponent = DateComponents()
-        let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
-        
-        var oneMonthFromNowComponents = DateComponents()
-        oneMonthFromNowComponents.month = 1
-        let oneMonthFromNow = calendar.date(byAdding: oneMonthFromNowComponents, to: Date(),wrappingComponents: true)
-        
-        var predicate: NSPredicate? = nil
-        if let anAgo = oneDayAgo, let aNow = oneMonthFromNow {
-            predicate = eventStore.predicateForEvents(withStart: anAgo, end: aNow, calendars: nil)
-        }
-        
-        var events: [EKEvent] = []
-        if let aPredicate = predicate {
-            events = eventStore.events(matching: aPredicate)
-        }
-        for event in events {
-            let center = UNUserNotificationCenter.current()
-            if(event.title.contains("Zoom meeting")){
-                meetings.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+    
+}
+
+struct DateRow: View {
+    var date: String = ""
+    var meetings: [Meeting] = []
+    
+    var body: some View {
+        VStack(spacing: 16.0){
+            Text(date)
+                .font(.system(size: 10, weight: .medium))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            ForEach(meetings){meeting in
+                MeetingRow(meeting: meeting)
             }
-            let data = calendar.date(byAdding: .minute, value: -3, to: event.startDate)
-            let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
-            let content = UNMutableNotificationContent()
-            content.title = "Time to meeting"
-            content.subtitle = event.title
-            content.userInfo["url"] = event.structuredLocation?.title ?? ""
-            content.sound = UNNotificationSound.default
-            let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                center.add(request)
-            
-        }    
-        
+        }
+        .padding(.top, 16.0)
     }
 }
 
@@ -113,18 +81,20 @@ struct MeetingRow: View {
         let hour = calendar.component(.hour, from: meeting.startDate)
         let minutes = calendar.component(.minute, from: meeting.startDate) < 10 ? "0\(calendar.component(.minute, from: meeting.startDate))" : "\(calendar.component(.minute, from: meeting.startDate))"
         let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
-        HStack{
+        HStack(alignment: .center){
             Text("\(hour):\(minutes)")
-                .font(.system(size: 18))
+                .font(.system(size: 16))
+                .frame(alignment: .leading)
             Text(updated)
-                .font(.system(size: 18))
-                .fontWeight(.bold)
+                .frame(maxWidth: .infinity)
+                .font(.system(size: 16, weight: .bold))
+                .lineLimit(1)
         }
     }
 }
 
 struct MeetingsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MeetingsScreen(show: .constant("meetings"))
+        MeetingsScreen(currentPage: .constant("meetings"))
     }
 }
