@@ -1,29 +1,30 @@
 //
-//  ContentView.swift
-//  Shared
+//  CheckCalendarScreen.swift
+//  Neverlate
 //
-//  Created by Mikhail Filippov on 05.07.2021.
+//  Created by Александр Северюхин on 07.07.2021.
 //
 
 import SwiftUI
 
-struct WelcomeScreen: View {
+struct CalendarScreen: View {
     @Binding var show: String
     var body : some View {
         VStack() {
-            Image("1")
+            Image("checkCalendar")
                 .cornerRadius(10)
                 .aspectRatio(contentMode: .fill)
             Spacer()
             VStack(spacing: 16.0){
-                Text("Welcome!")
+                Text("Checking your calendars")
                     .font(.system(size: 22))
                     .fontWeight(.heavy)
-                Text("NeverLate is a perfect app for those who frequently participate in Zoom meetings")
+                Text("NeverLate is checking that your scheduled Zoom meetings can be found")
                     .font(.system(size: 18))
+                    .multilineTextAlignment(.center)
             }
             Spacer()
-            Button(action: {self.show = "calendar"}, label: {
+            Button(action: {self.show = "access"}, label: {
                 Text("Continue")
                     .fontWeight(.regular)
                     .foregroundColor(.white)
@@ -40,8 +41,8 @@ struct WelcomeScreen: View {
     }
 }
 
-struct WelcomeScreen_Previews: PreviewProvider {
+struct CalendarScreen_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen(show: .constant("welcome"))
+        CalendarScreen(show: .constant("calendar"))
     }
 }
