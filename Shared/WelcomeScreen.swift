@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeScreen: View {
-    @Binding var show: String
+    @Binding var currentPage: String
     var body : some View {
         VStack() {
             Image("1")
@@ -23,7 +23,7 @@ struct WelcomeScreen: View {
                     .font(.system(size: 18))
             }
             Spacer()
-            Button(action: {self.show = "calendar"}, label: {
+            Button(action: {self.currentPage = "access"}, label: {
                 Text("Continue")
                     .fontWeight(.regular)
                     .foregroundColor(.white)
@@ -42,6 +42,6 @@ struct WelcomeScreen: View {
 
 struct WelcomeScreen_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen(show: .constant("welcome"))
+        WelcomeScreen(currentPage: .constant("welcome"))
     }
 }
