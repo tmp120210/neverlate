@@ -42,6 +42,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let MenuButton = StatusItem?.button{
             MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
             MenuButton.action = #selector(menuButtonToggle)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
+            }
         }
         if let window = NSApplication.shared.windows.first{
             window.close()

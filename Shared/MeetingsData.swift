@@ -24,6 +24,8 @@ struct MeetingDate: Codable, Identifiable{
 }
 
 func loadMeetings() -> [MeetingDate]{
+    let center = UNUserNotificationCenter.current()
+    center.removeAllPendingNotificationRequests()
     let eventStore = EKEventStore()
     let calendar = Calendar.current
     var dates: [String: [Meeting]] = [:]
@@ -46,28 +48,34 @@ func loadMeetings() -> [MeetingDate]{
         events = eventStore.events(matching: aPredicate)
     }
     for event in events {
-        let center = UNUserNotificationCenter.current()
-        if(event.title.contains("Zoom meeting")){
-            let formater = DateFormatter()
-            formater.dateFormat = "EEEE, d MMMM yyyy"
-            let date = formater.string(from: event.startDate)
-            if dates[date] == nil {
-                dates[date] = []
-                dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
-            }else{
-                dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+        
+        if let notes = event.notes{
+            if(notes.contains("zoom.us/")){
+                let formater = DateFormatter()
+                formater.dateFormat = "EEEE, d MMMM yyyy"
+                let date = formater.string(from: event.startDate)
+                if dates[date] == nil {
+                    dates[date] = []
+                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+                }else{
+                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+                }
             }
+            let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)
+            let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
+            let content = UNMutableNotificationContent()
+            let pattern = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+            if let data = notes.range(of: pattern, options: .regularExpression){
+                content.userInfo["url"] = event.notes?[data]
+            }
+            content.title = "Time to meeting"
+            content.subtitle = event.title
+            content.sound = UNNotificationSound.default
+            let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                center.add(request)
+            
         }
-        let data = calendar.date(byAdding: .minute, value: -3, to: event.startDate)
-        let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
-        let content = UNMutableNotificationContent()
-        content.title = "Time to meeting"
-        content.subtitle = event.title
-        content.userInfo["url"] = event.structuredLocation?.title ?? ""
-        content.sound = UNNotificationSound.default
-        let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            center.add(request)
         
     }
     for date in dates{
