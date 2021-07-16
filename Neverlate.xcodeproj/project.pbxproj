@@ -25,7 +25,24 @@
 		312CD40326970657000CF3CD /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
 		312CD405269861CB000CF3CD /* MeetingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD404269861CB000CF3CD /* MeetingsData.swift */; };
 		312CD406269861CB000CF3CD /* MeetingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD404269861CB000CF3CD /* MeetingsData.swift */; };
+		31B42ECB26A16BFB00017C77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B42ECA26A16BFB00017C77 /* AppDelegate.swift */; };
+		31B42ED926A16E4A00017C77 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B42ED826A16E4A00017C77 /* main.swift */; };
+		31B42EDB26A16ED300017C77 /* AutoLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31B42EC826A16BFB00017C77 /* AutoLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		31B42EDE26A16EEA00017C77 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		31B42EDA26A16EB600017C77 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				31B42EDB26A16ED300017C77 /* AutoLauncher.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		13CE8CF82693114F00806010 /* NeverlateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeverlateApp.swift; sourceTree = "<group>"; };
@@ -42,6 +59,12 @@
 		312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLaunchScreen.swift; sourceTree = "<group>"; };
 		312CD40126970657000CF3CD /* MeetingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsList.swift; sourceTree = "<group>"; };
 		312CD404269861CB000CF3CD /* MeetingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingsData.swift; sourceTree = "<group>"; };
+		31B42EC826A16BFB00017C77 /* AutoLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31B42ECA26A16BFB00017C77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		31B42ED326A16BFC00017C77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31B42ED426A16BFC00017C77 /* AutoLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoLauncher.entitlements; sourceTree = "<group>"; };
+		31B42ED826A16E4A00017C77 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +76,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		13CE8D042693115100806010 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31B42EDE26A16EEA00017C77 /* ServiceManagement.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31B42EC526A16BFB00017C77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -68,7 +99,9 @@
 				13CE8CF72693114F00806010 /* Shared */,
 				13CE8D012693115100806010 /* iOS */,
 				13CE8D082693115100806010 /* macOS */,
+				31B42EC926A16BFB00017C77 /* AutoLauncher */,
 				13CE8D002693115100806010 /* Products */,
+				31B42EDC26A16EEA00017C77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +126,7 @@
 			children = (
 				13CE8CFF2693115100806010 /* Neverlate.app */,
 				13CE8D072693115100806010 /* Neverlate.app */,
+				31B42EC826A16BFB00017C77 /* AutoLauncher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +146,25 @@
 				13CE8D0A2693115100806010 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		31B42EC926A16BFB00017C77 /* AutoLauncher */ = {
+			isa = PBXGroup;
+			children = (
+				31B42ECA26A16BFB00017C77 /* AppDelegate.swift */,
+				31B42ED826A16E4A00017C77 /* main.swift */,
+				31B42ED326A16BFC00017C77 /* Info.plist */,
+				31B42ED426A16BFC00017C77 /* AutoLauncher.entitlements */,
+			);
+			path = AutoLauncher;
+			sourceTree = "<group>";
+		};
+		31B42EDC26A16EEA00017C77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +194,7 @@
 				13CE8D032693115100806010 /* Sources */,
 				13CE8D042693115100806010 /* Frameworks */,
 				13CE8D052693115100806010 /* Resources */,
+				31B42EDA26A16EB600017C77 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -149,6 +203,23 @@
 			name = "Neverlate (macOS)";
 			productName = "Neverlate (macOS)";
 			productReference = 13CE8D072693115100806010 /* Neverlate.app */;
+			productType = "com.apple.product-type.application";
+		};
+		31B42EC726A16BFB00017C77 /* AutoLauncher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31B42ED726A16BFC00017C77 /* Build configuration list for PBXNativeTarget "AutoLauncher" */;
+			buildPhases = (
+				31B42EC426A16BFB00017C77 /* Sources */,
+				31B42EC526A16BFB00017C77 /* Frameworks */,
+				31B42EC626A16BFB00017C77 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoLauncher;
+			productName = AutoLauncher;
+			productReference = 31B42EC826A16BFB00017C77 /* AutoLauncher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -164,6 +235,9 @@
 						CreatedOnToolsVersion = 12.5.1;
 					};
 					13CE8D062693115100806010 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+					31B42EC726A16BFB00017C77 = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
@@ -183,6 +257,7 @@
 			targets = (
 				13CE8CFE2693115100806010 /* Neverlate (iOS) */,
 				13CE8D062693115100806010 /* Neverlate (macOS) */,
+				31B42EC726A16BFB00017C77 /* AutoLauncher */,
 			);
 		};
 /* End PBXProject section */
@@ -203,6 +278,13 @@
 			files = (
 				13CE8D102693115100806010 /* Assets.xcassets in Resources */,
 				312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31B42EC626A16BFB00017C77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +316,15 @@
 				312CD4002695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,
 				312CD3FD2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */,
 				13CE8D0C2693115100806010 /* NeverlateApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31B42EC426A16BFB00017C77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31B42ED926A16E4A00017C77 /* main.swift in Sources */,
+				31B42ECB26A16BFB00017C77 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +456,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.Neverlate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.NeverlateIOS;
 				PRODUCT_NAME = Neverlate;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -387,7 +478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.Neverlate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.NeverlateIOS;
 				PRODUCT_NAME = Neverlate;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -444,6 +535,54 @@
 			};
 			name = Release;
 		};
+		31B42ED526A16BFC00017C77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AutoLauncher/AutoLauncher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6T79FJ92Q9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = AutoLauncher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.AutoLauncher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		31B42ED626A16BFC00017C77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AutoLauncher/AutoLauncher.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 6T79FJ92Q9;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = AutoLauncher/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.AutoLauncher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -470,6 +609,15 @@
 			buildConfigurations = (
 				13CE8D172693115100806010 /* Debug */,
 				13CE8D182693115100806010 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31B42ED726A16BFC00017C77 /* Build configuration list for PBXNativeTarget "AutoLauncher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31B42ED526A16BFC00017C77 /* Debug */,
+				31B42ED626A16BFC00017C77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

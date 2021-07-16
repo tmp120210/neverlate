@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ServiceManagement
 
 struct AutoLaunchScreen: View {
     @Binding var currentPage: String
@@ -24,7 +25,9 @@ struct AutoLaunchScreen: View {
             }
             Spacer()
             VStack(spacing: 22.0){
-                Button(action: {self.currentPage = "meeting"}, label: {
+                Button(action: {
+                    SMLoginItemSetEnabled("com.redrazzr.AutoLauncher" as CFString, true)
+                }, label: {
                     Text("Allow and continue")
                         .fontWeight(.medium)
                         .font(.system(size: 17))
