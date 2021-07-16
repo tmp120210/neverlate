@@ -95,6 +95,11 @@ struct MeetingRow: View {
                 .frame(maxWidth: .infinity)
                 .font(.system(size: 16, weight: .bold))
                 .lineLimit(1)
+        }.onTapGesture {
+            guard let ur = NSURL(fileURLWithPath: "/Users/aleksandrseveruhin/Library/Calendars/214512CE-3D13-4A74-82D8-E434A53D3303.caldav/E447F4B3-A2F3-42B3-AC5E-7DF63391D7BC.calendar/events/05A49F8C-D3BA-4DEB-ADFB-141A01E0826F.ics") as URL? else {
+                print("none")
+                return}
+            NSWorkspace.shared.openApplication(at: ur , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
         }
     }
 }
