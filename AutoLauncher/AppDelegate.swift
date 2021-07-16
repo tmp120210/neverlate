@@ -11,6 +11,7 @@ class AutoLauncherAppDelegate: NSObject, NSApplicationDelegate {
 
     struct Constants {
         static let mainAppBundleID = "com.redrazzr.Neverlate"
+        static let mainAppName = "Neverlate.app"
     }
 
 
@@ -22,21 +23,15 @@ class AutoLauncherAppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if !isRunning {
-            var path = Bundle.main.bundlePath as NSString
-            for _ in 1...4 {
-                path = path.deletingLastPathComponent as NSString
-            }
-            let applicationPathString = path as String
-            guard let pathURL = URL(string: applicationPathString) else {return}
+            let path = Bundle.main.bundlePath as NSString
+            var components = path.pathComponents
+            components.removeLast()
+            components.append(Constants.mainAppName)
+            let applicationPathString = NSString.path(withComponents: components)
+            guard let pathURL = URL(string: "file://\(applicationPathString)") else {return}
             NSWorkspace.shared.openApplication(at: pathURL, configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
         }
         
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-
 }
 
