@@ -51,8 +51,6 @@ func loadMeetings() -> [MeetingDate]{
     for event in events {
         if let notes = event.notes{
             if(notes.contains("zoom.us/")){
-                print(event.calendar)
-                print(event.calendarItemExternalIdentifier)
                 let formater = DateFormatter()
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
@@ -60,7 +58,7 @@ func loadMeetings() -> [MeetingDate]{
                     dates[date] = []
                     dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
                 }else{
-                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+                    dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
                 }
             }
             let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)
