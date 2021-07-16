@@ -25,7 +25,9 @@ class AutoLauncherAppDelegate: NSObject, NSApplicationDelegate {
         if !isRunning {
             let path = Bundle.main.bundlePath as NSString
             var components = path.pathComponents
-            components.removeLast()
+            for _ in 1...3{
+                components.removeLast()
+            }
             components.append(Constants.mainAppName)
             let applicationPathString = NSString.path(withComponents: components)
             guard let pathURL = URL(string: "file://\(applicationPathString)") else {return}
