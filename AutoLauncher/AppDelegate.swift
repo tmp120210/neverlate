@@ -11,18 +11,10 @@ class AutoLauncherAppDelegate: NSObject, NSApplicationDelegate {
 
     struct Constants {
         static let mainAppBundleID = "com.redrazzr.Neverlate"
-        static let mainAppName = "Neverlate.app"
-        static let appTargetPlatform = "MacOS"
     }
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-        let killAutoLauncherNotificationName = Notification.Name(rawValue: "killAutoLauncher")
-                    DistributedNotificationCenter.default().addObserver(self,
-                                                                        selector: #selector(self.terminateApp),
-                                                                        name: killAutoLauncherNotificationName,
-                                                                        object: Constants.mainAppBundleID)
         
         let runningApps = NSWorkspace.shared.runningApplications
         let isRunning = runningApps.contains{
@@ -30,17 +22,22 @@ class AutoLauncherAppDelegate: NSObject, NSApplicationDelegate {
         }
         
         if !isRunning {
+            let killAutoLauncherNotificationName = Notification.Name(rawValue: "killAutoLauncher")
+                        DistributedNotificationCenter.default().addObserver(self,
+                                                                            selector: #selector(self.terminateApp),
+                                                                            name: killAutoLauncherNotificationName,
+                                                                            object: Constants.mainAppBundleID)
             let path = Bundle.main.bundlePath as NSString
             var components = path.pathComponents
-            for _ in 1...3{
+            for _ in 1...4{
                 components.removeLast()
             }
-            components.append(Constants.appTargetPlatform)
-            components.append(Constants.mainAppName)
             
             let applicationPathString = NSString.path(withComponents: components)
             guard let pathURL = URL(string: "file://\(applicationPathString)") else {return}
             NSWorkspace.shared.openApplication(at: pathURL, configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+        }else{
+            self.terminateApp()
         }
         
         
