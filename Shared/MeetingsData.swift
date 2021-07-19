@@ -26,6 +26,7 @@ struct MeetingDate: Codable, Identifiable{
 func loadMeetings() -> [MeetingDate]{
     let center = UNUserNotificationCenter.current()
     center.removeAllPendingNotificationRequests()
+    center.removeAllDeliveredNotifications()
     let eventStore = EKEventStore()
     let calendar = Calendar.current
     var dates: [String: [Meeting]] = [:]
@@ -48,7 +49,6 @@ func loadMeetings() -> [MeetingDate]{
         events = eventStore.events(matching: aPredicate)
     }
     for event in events {
-        
         if let notes = event.notes{
             if(notes.contains("zoom.us/")){
                 let formater = DateFormatter()
@@ -58,7 +58,7 @@ func loadMeetings() -> [MeetingDate]{
                     dates[date] = []
                     dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
                 }else{
-                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+                    dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
                 }
             }
             let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)

@@ -95,6 +95,9 @@ struct MeetingRow: View {
                 .frame(maxWidth: .infinity)
                 .font(.system(size: 16, weight: .bold))
                 .lineLimit(1)
+        }.onTapGesture {
+            guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
+            NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
         }
     }
 }
