@@ -456,7 +456,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.NeverlateIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.Neverlate;
 				PRODUCT_NAME = Neverlate;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -478,7 +478,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.NeverlateIOS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.redrazzr.Neverlate;
 				PRODUCT_NAME = Neverlate;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
