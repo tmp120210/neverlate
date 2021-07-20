@@ -30,7 +30,7 @@ struct CalendarAccessScreen: View {
                 eventStore.requestAccess(to: .event, completion:
                       {(granted: Bool, error: Error?) -> Void in
                         if granted, error == nil {
-                            self.currentPage = "meeting"
+                            self.currentPage = "allow"
                           } else {
                             print("Access denied")
                           }
