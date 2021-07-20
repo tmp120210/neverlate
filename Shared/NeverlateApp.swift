@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let window = NSApplication.shared.windows.first{
             window.close()
         }
-        _ = loadMeetings()
+        loadNitifications()
         
     }
     @objc func menuButtonToggle(sender: AnyObject){

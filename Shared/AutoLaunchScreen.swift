@@ -26,6 +26,7 @@ struct AutoLaunchScreen: View {
             Spacer()
             VStack(spacing: 22.0){
                 Button(action: {
+                    UserDefaults.standard.set(true, forKey: "launchAtLogin")
                     SMLoginItemSetEnabled("com.redrazzr.AutoLauncher" as CFString, true)
                     self.currentPage = "meeting"
                 }, label: {

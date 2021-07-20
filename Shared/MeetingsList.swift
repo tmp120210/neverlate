@@ -55,6 +55,7 @@ struct MeetingsScreen: View {
         .onReceive(pub) { _ in
             self.meetingDates = loadMeetings()
             self.ongoing = parseOngoing(meetingList: self.meetingDates)
+            loadNitifications()
         }
         .onAppear{
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
