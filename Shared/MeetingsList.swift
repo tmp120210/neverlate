@@ -19,13 +19,22 @@ struct MeetingsScreen: View {
     @State var meetingDates : [MeetingDate] = []
     @Binding var currentPage: String
     var body : some View {
-        VStack() {
+        VStack(spacing: 16.0) {
+            HStack(alignment: .top){
+                Button(action: {
+                    self.currentPage = "settings"
+                })
+                {
+                    Image("settings").renderingMode(.original)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }.padding(.trailing, 2.0).frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .trailing)
             VStack{
                 if(ongoing.isEmpty){
                     Text("No ongoing meetings")
                 }else{
                     List(ongoing){meeting in
-                        MeetingRow(meeting: meeting)
+                        OngoingRow(meeting: meeting)
                     }
                     .colorMultiply(Color("listBackground"))
                 }
@@ -45,6 +54,7 @@ struct MeetingsScreen: View {
         .padding(.vertical, 32.0)
         .onReceive(pub) { _ in
             self.meetingDates = loadMeetings()
+            self.ongoing = parseOngoing(meetingList: self.meetingDates)
         }
         .onAppear{
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
@@ -55,6 +65,7 @@ struct MeetingsScreen: View {
                 }
             }
             self.meetingDates = loadMeetings()
+            self.ongoing = parseOngoing(meetingList: self.meetingDates)
         }
     }
     
@@ -92,12 +103,34 @@ struct MeetingRow: View {
                 .font(.system(size: 16))
                 .frame(alignment: .leading)
             Text(updated)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 16, weight: .bold))
                 .lineLimit(1)
         }.onTapGesture {
             guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
             NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+        }
+    }
+}
+
+struct OngoingRow: View {
+    var meeting: Meeting
+    
+    var body: some View {
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: meeting.startDate)
+        let minutes = calendar.component(.minute, from: meeting.startDate) < 10 ? "0\(calendar.component(.minute, from: meeting.startDate))" : "\(calendar.component(.minute, from: meeting.startDate))"
+        let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
+        HStack(alignment: .center){
+            Text("\(hour):\(minutes)")
+                .font(.system(size: 16))
+                .frame(alignment: .leading)
+            Text(updated)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.system(size: 16, weight: .bold))
+                .lineLimit(1)
+        }.onTapGesture {
+            openZoomLink(url: meeting.url)
         }
     }
 }

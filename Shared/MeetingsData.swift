@@ -4,7 +4,7 @@
 //
 //  Created by Александр Северюхин on 09.07.2021.
 //
-
+import SwiftUI
 import Foundation
 import EventKit
 import UserNotifications
@@ -31,6 +31,7 @@ func loadMeetings() -> [MeetingDate]{
     let calendar = Calendar.current
     var dates: [String: [Meeting]] = [:]
     var result: [MeetingDate] = []
+    let pattern = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
     
     let todayComponent = DateComponents()
     let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
@@ -52,11 +53,15 @@ func loadMeetings() -> [MeetingDate]{
         if let notes = event.notes{
             if(notes.contains("zoom.us/")){
                 let formater = DateFormatter()
+                var url : Substring = ""
+                if let data = notes.range(of: pattern, options: .regularExpression){
+                    url = event.notes?[data] ?? ""
+                }
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
                 if dates[date] == nil {
                     dates[date] = []
-                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
+                    dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: String(url)))
                 }else{
                     dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: event.structuredLocation?.title ?? ""))
                 }
@@ -64,9 +69,8 @@ func loadMeetings() -> [MeetingDate]{
             let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)
             let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
             let content = UNMutableNotificationContent()
-            let pattern = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
             if let data = notes.range(of: pattern, options: .regularExpression){
-                content.userInfo["url"] = event.notes?[data]
+                content.userInfo["url"] = event.notes?[data] ?? ""
             }
             content.title = "Time to meeting"
             content.subtitle = event.title
@@ -82,4 +86,28 @@ func loadMeetings() -> [MeetingDate]{
         result.append(MeetingDate(date: date.key, meetings: date.value))
     }
     return result
+}
+
+func parseOngoing(meetingList: [MeetingDate]) -> [Meeting]{
+    var ongoing: [Meeting] = []
+    for item in meetingList{
+        for meeting in item.meetings{
+            if(meeting.startDate < Date() && meeting.endDate > Date()){
+                ongoing.append(meeting)
+            }
+        }
+    }
+    return ongoing
+}
+
+func openZoomLink(url: String){
+    let urlString = url.replacingOccurrences(of: "?", with: "&").replacingOccurrences(of: "/j/", with: "/join?confno=")
+    var zoomAppUrl = URLComponents(url: URL(string: urlString)!, resolvingAgainstBaseURL: false)!
+    zoomAppUrl.scheme = "zoommtg"
+    
+    if NSWorkspace.shared.open(zoomAppUrl.url!) {
+        print("opened in zoom app")
+    }else{
+        NSWorkspace.shared.open(URL(string: url)!)
+    }
 }

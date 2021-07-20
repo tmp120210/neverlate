@@ -21,7 +21,6 @@ struct NeverlateApp: App {
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     
-    
     var StatusItem: NSStatusItem?
     var popOver = NSPopover()
     
@@ -41,13 +40,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let MenuButton = StatusItem?.button{
             MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
             MenuButton.action = #selector(menuButtonToggle)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
+            if startScreen != "meeting"{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
+                }
             }
+            
         }
         if let window = NSApplication.shared.windows.first{
             window.close()
         }
+        _ = loadMeetings()
         
     }
     @objc func menuButtonToggle(sender: AnyObject){
@@ -61,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-   
+    
 }
 
 
@@ -69,15 +72,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        guard let url = URL(string: userInfo["url"] as! String) else {
+        guard let url = userInfo["url"] as? String else {
             print("wrong url")
             return
         }
-        if NSWorkspace.shared.open(url) {
-            print("default browser was successfully opened")
-        }
+        openZoomLink(url: url)
     }
 }
