@@ -19,7 +19,16 @@ struct MeetingsScreen: View {
     @State var meetingDates : [MeetingDate] = []
     @Binding var currentPage: String
     var body : some View {
-        VStack() {
+        VStack(spacing: 16.0) {
+            HStack(alignment: .top){
+                Button(action: {
+                    self.currentPage = "settings"
+                })
+                {
+                    Image("settings").renderingMode(.original)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }.padding(.trailing, 2.0).frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .trailing)
             VStack{
                 if(ongoing.isEmpty){
                     Text("No ongoing meetings")

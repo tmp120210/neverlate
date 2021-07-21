@@ -20,6 +20,8 @@ struct NavigationContainer: View{
                 AutoLaunchScreen(currentPage: $currentPage)
             case "meeting":
                 MeetingsScreen(currentPage: $currentPage)
+            case "settings":
+                SettingsScreen(currentPage: $currentPage)
             default:
                 WelcomeScreen(currentPage: $currentPage)
             }
