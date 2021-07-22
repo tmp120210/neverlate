@@ -72,11 +72,7 @@ struct MeetingsScreen: View {
     
     func loadData() {
         self.meetingDates = loadMeetings()
-        if self.meetingDates.first?.ongoing.count != 0{
-            self.ongoing = self.meetingDates.first?.ongoing ?? []
-        }else{
-            self.ongoing = []
-        }
+        self.ongoing = self.meetingDates.first?.ongoing ?? []
     }
     
 }
