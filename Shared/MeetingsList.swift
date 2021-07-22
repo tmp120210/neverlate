@@ -30,6 +30,7 @@ struct MeetingsScreen: View {
                 .buttonStyle(PlainButtonStyle())
             }.padding(.trailing, 2.0).frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .trailing)
             VStack{
+                if self.ongoing.count < 2 {Spacer()}
                 if(ongoing.isEmpty){
                     Text("No ongoing meetings")
                 }else{
@@ -38,8 +39,9 @@ struct MeetingsScreen: View {
                     }
                     .colorMultiply(Color("listBackground"))
                 }
+                if self.ongoing.count < 2 {Spacer()}
             }
-            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, idealHeight: 70, maxHeight: 70)
+            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: 70, maxHeight: 70)
             .background(Color("emptyListBackground"))
             .cornerRadius(8)
             List(meetingDates){date in
@@ -54,7 +56,9 @@ struct MeetingsScreen: View {
         .padding(.vertical, 32.0)
         .onReceive(pub) { _ in
             self.meetingDates = loadMeetings()
-            self.ongoing = parseOngoing(meetingList: self.meetingDates)
+            if self.meetingDates.first?.ongoing.count != 0{
+                self.ongoing = self.meetingDates.first?.ongoing ?? []
+            }
             loadNitifications()
         }
         .onAppear{
@@ -65,8 +69,14 @@ struct MeetingsScreen: View {
                     print(error.localizedDescription)
                 }
             }
-            self.meetingDates = loadMeetings()
-            self.ongoing = parseOngoing(meetingList: self.meetingDates)
+            loadData()
+        }
+    }
+    
+    func loadData() {
+        self.meetingDates = loadMeetings()
+        if self.meetingDates.first?.ongoing.count != 0{
+            self.ongoing = self.meetingDates.first?.ongoing ?? []
         }
     }
     
@@ -130,7 +140,8 @@ struct OngoingRow: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 16, weight: .bold))
                 .lineLimit(1)
-        }.onTapGesture {
+        }
+        .onTapGesture {
             openZoomLink(url: meeting.url)
         }
     }

@@ -21,6 +21,7 @@ struct MeetingDate: Codable, Identifiable{
     var id = UUID()
     var date: String
     var meetings: [Meeting]
+    var ongoing: [Meeting]
 }
 
 func loadMeetings() -> [MeetingDate]{
@@ -28,7 +29,8 @@ func loadMeetings() -> [MeetingDate]{
     let calendar = Calendar.current
     var dates: [String: [Meeting]] = [:]
     var result: [MeetingDate] = []
-    let pattern = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+    var ongoing: [Meeting] = []
+    let pattern = "https?:\\/\\/(?:[a-zA-Z0-9-.]+)?zoom.(?:us|com.cn)\\/(?:j|my|w)\\/[-a-zA-Z0-9()@:%_\\+.~#?&=\\/]*"
     
     let todayComponent = DateComponents()
     let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
@@ -48,7 +50,9 @@ func loadMeetings() -> [MeetingDate]{
     }
     for event in events {
         if let notes = event.notes{
-            if(notes.contains("zoom.us/")){
+            let zoomLink = notes.range(of: pattern, options: .regularExpression)
+            let status = getParticipantStatus(event)
+            if((zoomLink) != nil && (status != .declined)){
                 let formater = DateFormatter()
                 var url : Substring = ""
                 if let data = notes.range(of: pattern, options: .regularExpression){
@@ -56,7 +60,9 @@ func loadMeetings() -> [MeetingDate]{
                 }
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
-                if dates[date] == nil {
+                if(event.startDate < Date() &&  event.endDate > Date()){
+                    ongoing.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: String(url)))
+                }else if dates[date] == nil {
                     dates[date] = []
                     dates[date]?.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: String(url)))
                 }else{
@@ -67,7 +73,14 @@ func loadMeetings() -> [MeetingDate]{
         
     }
     for date in dates{
-        result.append(MeetingDate(date: date.key, meetings: date.value))
+        result.append(MeetingDate(date: date.key, meetings: date.value, ongoing: ongoing))
+    }
+    result.sort{
+        let formater = DateFormatter()
+        formater.dateFormat = "EEEE, d MMMM yyyy"
+        guard let firstDate = formater.date(from: $0.date) else {return false}
+        guard let secondDate = formater.date(from: $1.date) else {return false}
+        return firstDate < secondDate ? true : false
     }
     return result
 }
@@ -97,8 +110,9 @@ func loadNitifications(){
     }
     for event in events {
         if let notes = event.notes{
+            let status = getParticipantStatus(event)
             let zoomLink = notes.range(of: pattern, options: .regularExpression)
-            if((zoomLink) != nil){
+            if((zoomLink) != nil && (status != .declined)){
                 let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)
                 let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
                 let content = UNMutableNotificationContent()
@@ -116,17 +130,6 @@ func loadNitifications(){
     }
 }
 
-func parseOngoing(meetingList: [MeetingDate]) -> [Meeting]{
-    var ongoing: [Meeting] = []
-    for item in meetingList{
-        for meeting in item.meetings{
-            if(meeting.startDate < Date() && meeting.endDate > Date()){
-                ongoing.append(meeting)
-            }
-        }
-    }
-    return ongoing
-}
 
 func openZoomLink(url: String){
     let urlString = url.replacingOccurrences(of: "?", with: "&").replacingOccurrences(of: "/j/", with: "/join?confno=")
@@ -138,4 +141,15 @@ func openZoomLink(url: String){
     }else{
         NSWorkspace.shared.open(URL(string: url)!)
     }
+}
+
+func getParticipantStatus(_ event: EKEvent) -> EKParticipantStatus? {
+    if event.hasAttendees {
+        if let attendees = event.attendees {
+            if let currentUser = attendees.first(where: { $0.isCurrentUser }) {
+                return currentUser.participantStatus
+            }
+        }
+    }
+    return EKParticipantStatus.unknown
 }
