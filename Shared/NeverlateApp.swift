@@ -58,6 +58,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             popOver.performClose(sender)
         }else{
             if let menuButton = StatusItem?.button{
+                NotificationCenter.default.post(name: Notification.showList,
+                                                               object: nil)
                 self.popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
             }
         }

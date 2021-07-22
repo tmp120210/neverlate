@@ -15,6 +15,8 @@ struct MeetingsScreen: View {
     let eventStore = EKEventStore()
     let pub = NotificationCenter.default
         .publisher(for: Notification.Name.EKEventStoreChanged)
+    let showListPublisher = NotificationCenter.default
+        .publisher(for: Notification.showList)
     @State var ongoing : [Meeting] = []
     @State var meetingDates : [MeetingDate] = []
     @Binding var currentPage: String
@@ -54,6 +56,9 @@ struct MeetingsScreen: View {
         .frame(width: 320, height: 540)
         .padding(.horizontal, 16.0)
         .padding(.vertical, 32.0)
+        .onReceive(showListPublisher){_ in
+            loadData()
+        }
         .onReceive(pub) { _ in
             loadData()
             loadNitifications()
