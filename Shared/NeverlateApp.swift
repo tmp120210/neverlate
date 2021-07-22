@@ -21,7 +21,6 @@ struct NeverlateApp: App {
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     
-    
     var StatusItem: NSStatusItem?
     var popOver = NSPopover()
     
@@ -46,10 +45,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
                 }
             }
+            
         }
         if let window = NSApplication.shared.windows.first{
             window.close()
         }
+        loadNotifications()
         
     }
     @objc func menuButtonToggle(sender: AnyObject){
@@ -57,13 +58,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             popOver.performClose(sender)
         }else{
             if let menuButton = StatusItem?.button{
+                NotificationCenter.default.post(name: Notification.showList,
+                                                               object: nil)
                 self.popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
             }
         }
     }
     
     
-   
+    
 }
 
 
@@ -71,15 +74,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .sound, .badge])
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        guard let url = URL(string: userInfo["url"] as! String) else {
+        guard let url = userInfo["url"] as? String else {
             print("wrong url")
             return
         }
-        if NSWorkspace.shared.open(url) {
-            print("default browser was successfully opened")
-        }
+        openZoomLink(url: url)
     }
 }
