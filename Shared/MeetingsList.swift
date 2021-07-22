@@ -55,10 +55,7 @@ struct MeetingsScreen: View {
         .padding(.horizontal, 16.0)
         .padding(.vertical, 32.0)
         .onReceive(pub) { _ in
-            self.meetingDates = loadMeetings()
-            if self.meetingDates.first?.ongoing.count != 0{
-                self.ongoing = self.meetingDates.first?.ongoing ?? []
-            }
+            loadData()
             loadNitifications()
         }
         .onAppear{
@@ -77,6 +74,8 @@ struct MeetingsScreen: View {
         self.meetingDates = loadMeetings()
         if self.meetingDates.first?.ongoing.count != 0{
             self.ongoing = self.meetingDates.first?.ongoing ?? []
+        }else{
+            self.ongoing = []
         }
     }
     
