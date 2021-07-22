@@ -85,7 +85,7 @@ func loadMeetings() -> [MeetingDate]{
     return result
 }
 
-func loadNitifications(){
+func loadNotifications(){
     let eventStore = EKEventStore()
     let center = UNUserNotificationCenter.current()
     center.removeAllPendingNotificationRequests()
@@ -119,8 +119,8 @@ func loadNitifications(){
                 if let data = notes.range(of: pattern, options: .regularExpression){
                     content.userInfo["url"] = event.notes?[data] ?? ""
                 }
-                content.title = "Time to meeting"
-                content.subtitle = event.title
+                content.title = event.title
+                content.subtitle = "Click to join a meeting"
                 content.sound = UNNotificationSound.default
                 let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
                 let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)

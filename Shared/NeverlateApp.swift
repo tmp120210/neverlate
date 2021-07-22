@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let window = NSApplication.shared.windows.first{
             window.close()
         }
-        loadNitifications()
+        loadNotifications()
         
     }
     @objc func menuButtonToggle(sender: AnyObject){

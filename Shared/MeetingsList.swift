@@ -61,7 +61,7 @@ struct MeetingsScreen: View {
         }
         .onReceive(pub) { _ in
             loadData()
-            loadNitifications()
+            loadNotifications()
         }
         .onAppear{
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
