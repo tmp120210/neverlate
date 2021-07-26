@@ -77,10 +77,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate  {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        guard let url = userInfo["url"] as? String else {
-            print("wrong url")
-            return
+        var appUrl : String = ""
+        if userInfo["appUrl"] as? String != nil {
+            appUrl = userInfo["appUrl"] as! String
         }
-        openZoomLink(url: url)
+        let browserUrl = userInfo["browserUrl"] as! String
+        openMeetingLink(appLink: URL(string: appUrl) , browserLink: URL(string: browserUrl)!)
     }
 }

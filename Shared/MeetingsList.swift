@@ -142,7 +142,7 @@ struct OngoingRow: View {
                 .lineLimit(1)
         }
         .onTapGesture {
-            openZoomLink(url: meeting.url)
+            openMeetingLink(appLink: meeting.url.appLink, browserLink: meeting.url.browserLink)
         }
     }
 }
