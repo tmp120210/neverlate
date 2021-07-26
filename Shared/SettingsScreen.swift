@@ -48,7 +48,7 @@ struct SettingsScreen: View {
                 NSApplication.shared.terminate(self)
             })
             {
-                Text("Quit")
+                Text("Quit the App")
                     .font(.system(size: 17, weight: .regular))
                     .foregroundColor(.red)
                 
