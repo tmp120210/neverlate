@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "welcome" : "welcome"
+        let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
         let menuView = NavigationContainer(currentPage: startScreen)
         UNUserNotificationCenter.current().delegate = self
         popOver.behavior = .transient
