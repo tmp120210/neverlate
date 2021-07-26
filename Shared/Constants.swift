@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct MeetingLink: Codable{
     var browserLink: URL
@@ -14,6 +15,18 @@ struct MeetingLink: Codable{
 struct Pattern: Codable{
     var name: String
     var pattern: String
+}
+
+var popOver = NSPopover()
+var StatusItem: NSStatusItem?
+
+func showPopover(){
+    if let menuButton = StatusItem?.button{
+        NotificationCenter.default.post(name: Notification.showList,
+                                                       object: nil)
+        popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
+        popOver.contentViewController?.view.window?.makeKey()
+    }
 }
 
 let patterns = [
