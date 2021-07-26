@@ -30,7 +30,6 @@ func loadMeetings() -> [MeetingDate]{
     var dates: [String: [Meeting]] = [:]
     var result: [MeetingDate] = []
     var ongoing: [Meeting] = []
-//    let pattern = "https?:\\/\\/(?:[a-zA-Z0-9-.]+)?zoom.(?:us|com.cn)\\/(?:j|my|w)\\/[-a-zA-Z0-9()@:%_\\+.~#?&=\\/]*"
     
     let todayComponent = DateComponents()
     let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
