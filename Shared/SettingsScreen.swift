@@ -19,10 +19,10 @@ struct SettingsScreen: View {
                 })
                 {
                     Image(systemName: "chevron.left")
-                        .renderingMode(.original)
                         .resizable(resizingMode: .stretch)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 15, height: 26)
+                        .foregroundColor(.primary)
                     
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -41,7 +41,7 @@ struct SettingsScreen: View {
                         SMLoginItemSetEnabled("com.redrazzr.AutoLauncher" as CFString, value)
                         print("AutoLaunch set to \(value)")
                 })
-                    .toggleStyle(SwitchToggleStyle(tint: .black))
+                    .toggleStyle(SwitchToggleStyle(tint: .primary))
                 Spacer()
             }
             Button(action: {

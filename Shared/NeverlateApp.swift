@@ -33,7 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popOver.contentViewController = NSViewController()
         popOver.contentViewController?.view = NSHostingView(rootView: menuView)
         
-        popOver.contentViewController?.view.window?.makeKey()
         
         StatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         
@@ -43,6 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if startScreen != "meeting"{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
+                    self.popOver.contentViewController?.view.window?.makeKey()
                 }
             }
             
@@ -61,6 +61,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 NotificationCenter.default.post(name: Notification.showList,
                                                                object: nil)
                 self.popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
+                self.popOver.contentViewController?.view.window?.makeKey()
             }
         }
     }
