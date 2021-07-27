@@ -21,8 +21,6 @@ struct NeverlateApp: App {
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     
-    var StatusItem: NSStatusItem?
-    var popOver = NSPopover()
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
@@ -41,8 +39,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             MenuButton.action = #selector(menuButtonToggle)
             if startScreen != "meeting"{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
-                    self.popOver.contentViewController?.view.window?.makeKey()
+                    popOver.show(relativeTo: MenuButton.bounds, of: MenuButton, preferredEdge: NSRectEdge.minY)
+                    popOver.contentViewController?.view.window?.makeKey()
                 }
             }
             
@@ -57,12 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if popOver.isShown{
             popOver.performClose(sender)
         }else{
-            if let menuButton = StatusItem?.button{
-                NotificationCenter.default.post(name: Notification.showList,
-                                                               object: nil)
-                self.popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
-                self.popOver.contentViewController?.view.window?.makeKey()
-            }
+           showPopover()
         }
     }
     
