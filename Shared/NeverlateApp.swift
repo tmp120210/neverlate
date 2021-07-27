@@ -17,6 +17,9 @@ struct NeverlateApp: App {
         }
     }
 }
+var popOver = NSPopover()
+var StatusItem: NSStatusItem?
+
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -63,6 +66,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 
+func showPopover(){
+    if let menuButton = StatusItem?.button{
+        NotificationCenter.default.post(name: Notification.showList,
+                                                       object: nil)
+        popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
+        popOver.contentViewController?.view.window?.makeKey()
+    }
+}
 
 extension AppDelegate: UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

@@ -128,6 +128,18 @@ struct Calendars: View {
     }
 }
 
+func addAllowedCalendars(id: String){
+    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
+    allowedCalendars.append(id)
+    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
+    
+}
+
+func removeAllowedCalendars(id: String){
+    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
+    allowedCalendars.removeAll(where: {$0 == id})
+    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
+}
 
 struct SettingsScreen_Previews: PreviewProvider {
     static var previews: some View {

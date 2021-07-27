@@ -17,17 +17,7 @@ struct Pattern: Codable{
     var pattern: String
 }
 
-var popOver = NSPopover()
-var StatusItem: NSStatusItem?
 
-func showPopover(){
-    if let menuButton = StatusItem?.button{
-        NotificationCenter.default.post(name: Notification.showList,
-                                                       object: nil)
-        popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
-        popOver.contentViewController?.view.window?.makeKey()
-    }
-}
 
 let patterns = [
     Pattern(name: "zoom", pattern: "https?:\\/\\/(?:[a-zA-Z0-9-.]+)?zoom.(?:us|com.cn)\\/(?:j|my|w)\\/[-a-zA-Z0-9()@:%_\\+.~#?&=\\/]*"),
@@ -36,15 +26,4 @@ let patterns = [
     Pattern(name: "msLive", pattern: "https?:\\/\\/teams\\.live\\.com/meet/[0-9]+"),
 ]
 
-func addAllowedCalendars(id: String){
-    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
-    allowedCalendars.append(id)
-    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
-    
-}
 
-func removeAllowedCalendars(id: String){
-    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
-    allowedCalendars.removeAll(where: {$0 == id})
-    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
-}
