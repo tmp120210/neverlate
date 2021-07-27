@@ -36,3 +36,15 @@ let patterns = [
     Pattern(name: "msLive", pattern: "https?:\\/\\/teams\\.live\\.com/meet/[0-9]+"),
 ]
 
+func addAllowedCalendars(id: String){
+    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
+    allowedCalendars.append(id)
+    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
+    
+}
+
+func removeAllowedCalendars(id: String){
+    var allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
+    allowedCalendars.removeAll(where: {$0 == id})
+    UserDefaults.standard.set(allowedCalendars, forKey: "allowedCalendars")
+}

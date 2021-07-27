@@ -30,6 +30,7 @@ func loadMeetings() -> [MeetingDate]{
     var dates: [String: [Meeting]] = [:]
     var result: [MeetingDate] = []
     var ongoing: [Meeting] = []
+    let allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
     
     let todayComponent = DateComponents()
     let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
@@ -51,7 +52,7 @@ func loadMeetings() -> [MeetingDate]{
         if event.notes != nil{
             let link = findLink(event: event)
             let status = getParticipantStatus(event)
-            if((link) != nil && (status != .declined)){
+            if((link) != nil && (status != .declined) && (allowedCalendars.contains(event.calendar.calendarIdentifier) )){
                 let formater = DateFormatter()
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
@@ -87,6 +88,7 @@ func loadNotifications(){
     center.removeAllDeliveredNotifications()
     let calendar = Calendar.current
     var events: [EKEvent] = []
+    let allowedCalendars = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
     
     let todayComponent = DateComponents()
     let oneDayAgo = calendar.date(byAdding: todayComponent, to: Date(), wrappingComponents: true)
@@ -106,7 +108,7 @@ func loadNotifications(){
         if event.notes != nil{
             let status = getParticipantStatus(event)
             let link = findLink(event: event)
-            if((link) != nil && (status != .declined)){
+            if((link) != nil && (status != .declined) && (allowedCalendars.contains(event.calendar.calendarIdentifier) )){
                 let data = calendar.date(byAdding: .minute, value: -1, to: event.startDate)
                 let component = calendar.dateComponents([.minute, .hour, . day, .month, .year], from: data!)
                 let content = UNMutableNotificationContent()
