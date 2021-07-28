@@ -15,6 +15,7 @@ struct Meeting: Codable, Identifiable{
     let startDate: Date
     let endDate: Date
     let url: MeetingLink
+    let accepted: Bool
 }
 
 struct MeetingDate: Codable, Identifiable{
@@ -52,15 +53,16 @@ func loadMeetings() -> [MeetingDate]{
         if event.notes != nil{
             let link = findLink(event: event)
             let status = getParticipantStatus(event)
-            if((link) != nil && (status != .declined) && (allowedCalendars.contains(event.calendar.calendarIdentifier) )){
+            let accepted = status != .declined
+            if((link) != nil &&  (allowedCalendars.contains(event.calendar.calendarIdentifier) )){
                 let formater = DateFormatter()
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
                 if dates[date] == nil {dates[date] = []}
-                if(event.startDate < Date() &&  event.endDate > Date()){
-                    ongoing.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!))
+                if((event.startDate < Date() &&  event.endDate > Date()) && accepted){
+                    ongoing.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!, accepted: accepted))
                 }else{
-                    dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!))
+                    dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!, accepted: accepted))
                 }
             }
         }

@@ -30,32 +30,54 @@ struct MeetingsScreen: View {
                     Image("settings").renderingMode(.original)
                 }
                 .buttonStyle(PlainButtonStyle())
-            }.padding(.trailing, 2.0).frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .trailing)
-            VStack{
-                if self.ongoing.count < 2 {Spacer()}
+            }
+            .padding(.vertical)
+            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .trailing)
                 if(ongoing.isEmpty){
-                    Text("No ongoing meetings")
+                    HStack{
+                        Text("No ongoing meetings")
+                            .foregroundColor(Color("emptyListText"))
+                    }
+                    .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: 48, maxHeight: 48)
+                    .background(Color("emptyListBackground"))
+                    .cornerRadius(8)
+                    
                 }else{
-                    List(ongoing){meeting in
+                    VStack(spacing: 8){
+                        ForEach(ongoing){meeting in
                         OngoingRow(meeting: meeting)
                     }
-                    .colorMultiply(Color("listBackground"))
+                        
+                    }
+                    
                 }
-                if self.ongoing.count < 2 {Spacer()}
+            if(meetingDates.isEmpty){
+                VStack{
+                    Image("empty")
+                    Text("No meetings found in your\nconnected accounts")
+                        .foregroundColor(Color("emptyListText"))
+                        .multilineTextAlignment(.center)
+                        
+                }
+                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: .infinity, maxHeight: .infinity, alignment: .center)
+                .background(Color("emptyListBackground"))
+                .cornerRadius(8)
+            }else{
+                ScrollView{
+                    VStack(spacing: 8){
+                        ForEach(meetingDates){date in
+                        DateRow(date: date.date, meetings: date.meetings)
+                    }
+                        
+                    }
+                }
             }
-            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: 70, maxHeight: 70)
-            .background(Color("emptyListBackground"))
-            .cornerRadius(8)
-            List(meetingDates){date in
-                DateRow(date: date.date, meetings: date.meetings)
-            }
-            .colorMultiply(Color("listBackground"))
-            .cornerRadius(8)
+            
+            
             
         }
+        .padding()
         .frame(width: 320, height: 540)
-        .padding(.horizontal, 16.0)
-        .padding(.vertical, 32.0)
         .onReceive(showListPublisher){_ in
             loadData()
         }
@@ -88,8 +110,9 @@ struct DateRow: View {
     
     var body: some View {
         if meetings.count != 0 {
-            VStack(spacing: 16.0){
-                Text(date)
+            VStack(spacing: 8){
+                Text(date.uppercased())
+                    .padding(.horizontal)
                     .font(.system(size: 10, weight: .medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 ForEach(meetings){meeting in
@@ -112,14 +135,18 @@ struct MeetingRow: View {
         let minutes = calendar.component(.minute, from: meeting.startDate) < 10 ? "0\(calendar.component(.minute, from: meeting.startDate))" : "\(calendar.component(.minute, from: meeting.startDate))"
         let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
         HStack(alignment: .center){
-            Text("\(hour):\(minutes)")
+            Text("\(hour):\(minutes)").strikethrough(!meeting.accepted)
+                .padding()
                 .font(.system(size: 16))
                 .frame(alignment: .leading)
-            Text(updated)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            Text(updated).strikethrough(!meeting.accepted)
+                .padding(.trailing)
+                .frame(alignment: .leading)
                 .font(.system(size: 16, weight: .bold))
                 .lineLimit(1)
-        }.onTapGesture {
+        }
+        .rowStyle(backgroundColor: Color("listBackground"))
+        .onTapGesture {
             guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
             NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
         }
@@ -130,19 +157,22 @@ struct OngoingRow: View {
     var meeting: Meeting
     
     var body: some View {
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: meeting.startDate)
-        let minutes = calendar.component(.minute, from: meeting.startDate) < 10 ? "0\(calendar.component(.minute, from: meeting.startDate))" : "\(calendar.component(.minute, from: meeting.startDate))"
         let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
         HStack(alignment: .center){
-            Text("\(hour):\(minutes)")
-                .font(.system(size: 16))
+            Text("Now")
+                .font(.system(size: 16, weight: .regular))
                 .frame(alignment: .leading)
+                .foregroundColor(.white)
+                .padding()
             Text(updated)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, alignment: .leading)
                 .font(.system(size: 16, weight: .bold))
+                .foregroundColor(.white)
                 .lineLimit(1)
+            Image("meeting_icon")
+                .padding(.horizontal)
         }
+        .rowStyle(backgroundColor: Color.accentColor)
         .onTapGesture {
             openMeetingLink(appLink: meeting.url.appLink, browserLink: meeting.url.browserLink)
         }

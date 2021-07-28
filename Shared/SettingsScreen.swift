@@ -24,41 +24,53 @@ struct SettingsScreen: View {
     @State var accounts : [String: [EKCalendar]] = [:]
     var body : some View {
         VStack() {
-            HStack(alignment: .center, spacing: 16.0){
-                Button(action: {
-                    self.currentPage = "meeting"
-                })
-                {
-                    Image("chevron.left")
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 26)
-                        .foregroundColor(.primary)
-                    
+            ZStack{
+                HStack(alignment: .center, spacing: 8){
+                    Button(action: {
+                        self.currentPage = "meeting"
+                    })
+                    {
+                        Image("chevron.left")
+                            .resizable(resizingMode: .stretch)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 12, height: 20)
+                            .foregroundColor(.black)
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    Text("Back")
+                        .font(.system(size: 17, weight: .regular))
                 }
-                .buttonStyle(PlainButtonStyle())
+                .padding(.vertical)
+                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 Text("Settings")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.custom("SF Pro Display", size: 25))
+                    .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .padding(.leading, 0.0)
-            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
-            ScrollView{
+            
+            ScrollView(showsIndicators: false){
                 Toggle(isOn: launchAtLogin){
                     Text("Launch at System startup")
+                        .padding()
                         .font(.system(size: 18, weight: .regular))
                         .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 }
+                .padding(.trailing)
+                .rowStyle(backgroundColor: Color("listBackground"))
                 .toggleStyle(SwitchToggleStyle())
-                .padding(.trailing, 16.0)
                 
-                VStack() {
+                Section(header:
+                            Text("Connected accounts")
+                                .sectionHeader()
+                            .padding(.vertical)
+                            
+                ) {
                     ForEach(Array(accounts.keys), id: \.self){acc in
                         AccountSection(account: acc, calendars: self.accounts[acc]!)
                         
                     }
                 }
                 .padding(.top, 10.0)
-                .padding(.trailing, 16)
                 
                 Spacer()
             }
@@ -68,9 +80,12 @@ struct SettingsScreen: View {
             {
                 Text("Quit the App")
                     .font(.system(size: 17, weight: .regular))
-                    .foregroundColor(.red)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .background(Color.red)
                 
             }
+            .cornerRadius(10)
             .buttonStyle(PlainButtonStyle())
         }
         .onAppear{
@@ -89,8 +104,8 @@ struct AccountSection: View {
     var body: some View {
         Section(
             header: Text(account)
+                .sectionHeader()
                 .foregroundColor(.gray)
-                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: 10, maxHeight: .infinity, alignment: .leading)
         )
         {
             ForEach(calendars, id: \.self){calendar in
@@ -123,10 +138,13 @@ struct Calendars: View {
         HStack{
             Toggle(isOn: isAllow){
                 Text(calendar.title)
+                    .padding()
                     .font(.system(size: 18, weight: .regular))
                     .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 
             }
+            .padding(.trailing)
+            .rowStyle(backgroundColor: Color("listBackground"))
             .toggleStyle(SwitchToggleStyle())
             
             
