@@ -12,7 +12,16 @@ import EventKit
 struct SettingsScreen: View {
     let eventStore = EKEventStore()
     @Binding var currentPage: String
-    @AppStorage("launchAtLogin") var launchAtLogin = false
+    //    @AppStorage("launchAtLogin") var launchAtLogin = false
+    private var launchAtLogin: Binding<Bool> { Binding (
+        get: { return UserDefaults.standard.bool(forKey: "launchAtLogin") },
+        set: { value in
+            UserDefaults.standard.set(value, forKey: "launchAtLogin")
+            SMLoginItemSetEnabled("com.redrazzr.AutoLauncher" as CFString, value)
+            print("AutoLaunch set to \(value)")
+        }
+    )
+    }
     @State var accounts : [String: [EKCalendar]] = [:]
     var body : some View {
         VStack() {
@@ -21,7 +30,7 @@ struct SettingsScreen: View {
                     self.currentPage = "meeting"
                 })
                 {
-                    Image(systemName: "chevron.left")
+                    Image("chevron.left")
                         .resizable(resizingMode: .stretch)
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 15, height: 26)
@@ -35,17 +44,14 @@ struct SettingsScreen: View {
             .padding(.leading, 0.0)
             .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
             ScrollView{
-                Toggle(isOn: $launchAtLogin){
+                Toggle(isOn: launchAtLogin){
                     Text("Launch at System startup")
                         .font(.system(size: 18, weight: .regular))
                         .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 }
+                .toggleStyle(SwitchToggleStyle())
                 .padding(.trailing, 16.0)
-                .onChange(of: self.launchAtLogin, perform: { value in
-                    SMLoginItemSetEnabled("com.redrazzr.AutoLauncher" as CFString, value)
-                    print("AutoLaunch set to \(value)")
-                })
-                .toggleStyle(SwitchToggleStyle(tint: .primary))
+                
                 VStack() {
                     ForEach(Array(accounts.keys), id: \.self){acc in
                         AccountSection(account: acc, calendars: self.accounts[acc]!)
@@ -101,7 +107,7 @@ struct AccountSection: View {
 struct Calendars: View {
     var calendar: EKCalendar
     @State private var allowedCalendars: [String] = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
-    @State private var allowCalendar = true
+    //    @State private var allowCalendar = true
     private var isAllow: Binding<Bool> { Binding (
         get: { return UserDefaults.standard.bool(forKey: calendar.title) },
         set: { value in
@@ -123,7 +129,9 @@ struct Calendars: View {
                     .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 
             }
-            .toggleStyle(SwitchToggleStyle(tint: .primary))
+            .toggleStyle(SwitchToggleStyle())
+            
+            
         }
     }
 }
