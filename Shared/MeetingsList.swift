@@ -134,22 +134,33 @@ struct MeetingRow: View {
         let hour = calendar.component(.hour, from: meeting.startDate)
         let minutes = calendar.component(.minute, from: meeting.startDate) < 10 ? "0\(calendar.component(.minute, from: meeting.startDate))" : "\(calendar.component(.minute, from: meeting.startDate))"
         let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
-        HStack(alignment: .center){
-            Text("\(hour):\(minutes)").strikethrough(!meeting.accepted)
-                .padding()
-                .font(.system(size: 16))
-                .frame(alignment: .leading)
-            Text(updated).strikethrough(!meeting.accepted)
-                .padding(.trailing)
-                .frame(alignment: .leading)
-                .font(.system(size: 16, weight: .bold))
-                .lineLimit(1)
+        ZStack{
+            HStack(alignment: .center){
+                Text("\(hour):\(minutes)")
+                    .foregroundColor(meeting.accepted ? Color.primary : Color("declinedText"))
+                    .padding()
+                    .font(.system(size: 16))
+                    .frame(alignment: .leading)
+                Text(updated)
+                    .foregroundColor(meeting.accepted ? Color.primary : Color("declinedText"))
+                    .padding(.trailing)
+                    .frame(alignment: .leading)
+                    .font(.system(size: 16, weight: .bold))
+                    .lineLimit(1)
+            }
+            .rowStyle(backgroundColor: Color("listBackground"))
+            .onTapGesture {
+                guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
+                NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+            }
+            if !meeting.accepted {
+                Divider()
+                    .background(Color("declinedText"))
+                    .padding(.horizontal)
+            }
+            
         }
-        .rowStyle(backgroundColor: Color("listBackground"))
-        .onTapGesture {
-            guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
-            NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
-        }
+        
     }
 }
 
