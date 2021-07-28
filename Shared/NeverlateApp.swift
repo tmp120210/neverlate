@@ -8,24 +8,23 @@
 import SwiftUI
 import UserNotifications
 import EventKit
+import Cocoa
 
-@main
-struct NeverlateApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    var body: some Scene {
-        WindowGroup {
-        }
+struct NeverlateApp: View {
+    var body: some View {
+        VStack{}
     }
 }
 var popOver = NSPopover()
 var StatusItem: NSStatusItem?
 
-
+@main
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+
         let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
         let menuView = NavigationContainer(currentPage: startScreen)
         UNUserNotificationCenter.current().delegate = self
@@ -35,10 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popOver.contentViewController?.view = NSHostingView(rootView: menuView)
         
         
-        StatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        StatusItem = NSStatusBar.system.statusItem(
+            withLength: CGFloat(NSStatusItem.variableLength))
         
         if let MenuButton = StatusItem?.button{
-            MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
+            MenuButton.image = NSImage(named: "settings")
             MenuButton.action = #selector(menuButtonToggle)
             if startScreen != "meeting"{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -47,9 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
             
-        }
-        if let window = NSApplication.shared.windows.first{
-            window.close()
         }
         loadNotifications()
         
@@ -77,7 +74,7 @@ func showPopover(){
 
 extension AppDelegate: UNUserNotificationCenterDelegate  {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound, .badge])
+        completionHandler([.sound, .badge])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {

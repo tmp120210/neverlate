@@ -87,15 +87,17 @@ struct DateRow: View {
     var meetings: [Meeting] = []
     
     var body: some View {
-        VStack(spacing: 16.0){
-            Text(date)
-                .font(.system(size: 10, weight: .medium))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            ForEach(meetings){meeting in
-                MeetingRow(meeting: meeting)
+        if meetings.count != 0 {
+            VStack(spacing: 16.0){
+                Text(date)
+                    .font(.system(size: 10, weight: .medium))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                ForEach(meetings){meeting in
+                    MeetingRow(meeting: meeting)
+                }
             }
+            .padding(.top, 16.0)
         }
-        .padding(.top, 16.0)
     }
 }
 
