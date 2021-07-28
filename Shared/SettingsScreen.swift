@@ -34,7 +34,7 @@ struct SettingsScreen: View {
                             .resizable(resizingMode: .stretch)
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 12, height: 20)
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                         
                     }
                     .buttonStyle(PlainButtonStyle())
