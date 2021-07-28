@@ -12,7 +12,6 @@ import EventKit
 struct SettingsScreen: View {
     let eventStore = EKEventStore()
     @Binding var currentPage: String
-    //    @AppStorage("launchAtLogin") var launchAtLogin = false
     private var launchAtLogin: Binding<Bool> { Binding (
         get: { return UserDefaults.standard.bool(forKey: "launchAtLogin") },
         set: { value in
@@ -107,7 +106,6 @@ struct AccountSection: View {
 struct Calendars: View {
     var calendar: EKCalendar
     @State private var allowedCalendars: [String] = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
-    //    @State private var allowCalendar = true
     private var isAllow: Binding<Bool> { Binding (
         get: { return UserDefaults.standard.bool(forKey: calendar.title) },
         set: { value in

@@ -11,7 +11,6 @@ import EventKit
 import Cocoa
 
 struct NeverlateApp: View {
-//    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some View {
         VStack{}
     }
@@ -49,9 +48,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
         }
-//        if let window = NSApplication.shared.windows.first{
-//            window.close()
-//        }
         loadNotifications()
         
     }
