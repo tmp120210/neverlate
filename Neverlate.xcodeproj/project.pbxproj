@@ -7,25 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13CE8D0B2693115100806010 /* NeverlateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF82693114F00806010 /* NeverlateApp.swift */; };
 		13CE8D0C2693115100806010 /* NeverlateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF82693114F00806010 /* NeverlateApp.swift */; };
 		13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0F2693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 		13CE8D102693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
-		3115F9DE26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		3115F9DF26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
 		312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
-		312CD3F62695BBB9000CF3CD /* NavigationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3F52695BBB9000CF3CD /* NavigationContainer.swift */; };
 		312CD3F72695BBB9000CF3CD /* NavigationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3F52695BBB9000CF3CD /* NavigationContainer.swift */; };
-		312CD3FC2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FB2695C256000CF3CD /* CalendarAccessScreen.swift */; };
 		312CD3FD2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FB2695C256000CF3CD /* CalendarAccessScreen.swift */; };
-		312CD3FF2695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */; };
 		312CD4002695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FE2695C3FA000CF3CD /* AutoLaunchScreen.swift */; };
-		312CD40226970657000CF3CD /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
 		312CD40326970657000CF3CD /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
-		312CD405269861CB000CF3CD /* MeetingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD404269861CB000CF3CD /* MeetingsData.swift */; };
 		312CD406269861CB000CF3CD /* MeetingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD404269861CB000CF3CD /* MeetingsData.swift */; };
 		3163E3A526A9A6D500009022 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163E3A426A9A6D500009022 /* Notification.swift */; };
 		3163E3A626A9A81D00009022 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163E3A426A9A6D500009022 /* Notification.swift */; };
@@ -40,6 +33,9 @@
 		31B42EDE26A16EEA00017C77 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */; };
 		31F34A5126B1928400A183A9 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View.swift */; };
 		31F34A5226B1928400A183A9 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View.swift */; };
+		31F34A5426B2B08A00A183A9 /* NeverlateiOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5326B2B08A00A183A9 /* NeverlateiOS.swift */; };
+		31F34A5626B2B1DD00A183A9 /* NavigationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5526B2B1DD00A183A9 /* NavigationContainer.swift */; };
+		31F34A5C26B2B5B500A183A9 /* CalendarAccessScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD3FB2695C256000CF3CD /* CalendarAccessScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,6 +78,8 @@
 		31B42ED826A16E4A00017C77 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		31F34A5026B1928400A183A9 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		31F34A5326B2B08A00A183A9 /* NeverlateiOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeverlateiOS.swift; sourceTree = "<group>"; };
+		31F34A5526B2B1DD00A183A9 /* NavigationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				13CE8D022693115100806010 /* Info.plist */,
+				31F34A5326B2B08A00A183A9 /* NeverlateiOS.swift */,
+				31F34A5526B2B1DD00A183A9 /* NavigationContainer.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -327,18 +327,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3115F9DE26A5A900006F969A /* SettingsScreen.swift in Sources */,
-				312CD40226970657000CF3CD /* MeetingsList.swift in Sources */,
 				3163E3A526A9A6D500009022 /* Notification.swift in Sources */,
-				312CD3F62695BBB9000CF3CD /* NavigationContainer.swift in Sources */,
-				312CD405269861CB000CF3CD /* MeetingsData.swift in Sources */,
+				31F34A5C26B2B5B500A183A9 /* CalendarAccessScreen.swift in Sources */,
+				31F34A5426B2B08A00A183A9 /* NeverlateiOS.swift in Sources */,
 				3163E3A826AADA4B00009022 /* Constants.swift in Sources */,
 				13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */,
+				31F34A5626B2B1DD00A183A9 /* NavigationContainer.swift in Sources */,
 				3163E3AB26AEF0B900009022 /* EventStore.swift in Sources */,
 				31F34A5126B1928400A183A9 /* View.swift in Sources */,
-				312CD3FF2695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,
-				312CD3FC2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */,
-				13CE8D0B2693115100806010 /* NeverlateApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

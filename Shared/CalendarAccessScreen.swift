@@ -34,11 +34,13 @@ struct CalendarAccessScreen: View {
                           } else {
                             print("Access denied")
                           }
+                        #if os(macOS)
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             if !popOver.isShown{
                                 showPopover()
                             }
                         }
+                        #endif
                     })
                 
             }, label: {
