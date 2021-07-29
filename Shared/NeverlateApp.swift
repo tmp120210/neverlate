@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-
+        let eventStore = EKEventStore()
         let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
         let menuView = NavigationContainer(currentPage: startScreen)
         UNUserNotificationCenter.current().delegate = self
@@ -48,6 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
         }
+        eventStore.getAllowed()
         loadNotifications()
         
     }
