@@ -12,7 +12,7 @@
 		13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0F2693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
-		13CE8D102693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
+		310843FE26B2ED9C0027AABB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 		3115F9DE26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		3115F9DF26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
@@ -41,6 +41,7 @@
 		31F34A5126B1928400A183A9 /* View+SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View+SectionHeader.swift */; };
 		31F34A5226B1928400A183A9 /* View+SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View+SectionHeader.swift */; };
 		31F34A5E26B2C79100A183A9 /* View+RowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5D26B2C79100A183A9 /* View+RowStyle.swift */; };
+		31F34A5F26B2E6ED00A183A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -310,8 +311,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CE8D102693115100806010 /* Assets.xcassets in Resources */,
 				3163E3D926B1539900009022 /* Main.storyboard in Resources */,
+				31F34A5F26B2E6ED00A183A9 /* Assets.xcassets in Resources */,
 				312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310843FE26B2ED9C0027AABB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
