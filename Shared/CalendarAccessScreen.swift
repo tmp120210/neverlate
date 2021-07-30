@@ -30,7 +30,12 @@ struct CalendarAccessScreen: View {
                 eventStore.requestAccess(to: .event, completion:
                       {(granted: Bool, error: Error?) -> Void in
                         if granted, error == nil {
+                            #if os(macOS)
                             self.currentPage = "allow"
+                            #else
+                            self.currentPage = "meeting"
+                            #endif
+                            loadNotifications()
                           } else {
                             print("Access denied")
                           }
@@ -54,7 +59,6 @@ struct CalendarAccessScreen: View {
             .cornerRadius(10)
             .buttonStyle(PlainButtonStyle())
         }
-        .frame(width: 320, height: 540)
         .padding(.horizontal, 16.0)
         .padding(.vertical, 32.0)
         

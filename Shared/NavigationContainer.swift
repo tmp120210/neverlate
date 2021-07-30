@@ -27,6 +27,7 @@ struct NavigationContainer: View{
             }
             
         }
+        .frame(width: 320, height: 540)
         .background(Color("appBackground"))
         
     }

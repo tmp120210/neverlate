@@ -77,7 +77,6 @@ struct MeetingsScreen: View {
             
         }
         .padding()
-        .frame(width: 320, height: 540)
         .onReceive(showListPublisher){_ in
             loadData()
         }
@@ -150,8 +149,13 @@ struct MeetingRow: View {
             }
             .rowStyle(backgroundColor: Color("listBackground"))
             .onTapGesture {
+                #if os(macOS)
                 guard let url = URL(string: "ical://ekevent/\(meeting.id)") else {return}
                 NSWorkspace.shared.openApplication(at: url , configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+                #else
+                guard let url = URL(string: "calshow:\(meeting.startDate.timeIntervalSinceReferenceDate)") else {return}
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                #endif
             }
             if !meeting.accepted {
                 Divider()

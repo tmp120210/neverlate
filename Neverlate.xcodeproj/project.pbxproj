@@ -12,6 +12,9 @@
 		13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0F2693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 		13CE8D102693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
+		310843FF26B2FBA70027AABB /* MeetingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD40126970657000CF3CD /* MeetingsList.swift */; };
+		3108440026B2FBB00027AABB /* MeetingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CD404269861CB000CF3CD /* MeetingsData.swift */; };
+		3108440126B2FCFE0027AABB /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		3115F9DF26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
 		312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
@@ -328,13 +331,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3163E3A526A9A6D500009022 /* Notification.swift in Sources */,
+				3108440026B2FBB00027AABB /* MeetingsData.swift in Sources */,
 				31F34A5C26B2B5B500A183A9 /* CalendarAccessScreen.swift in Sources */,
 				31F34A5426B2B08A00A183A9 /* NeverlateiOS.swift in Sources */,
 				3163E3A826AADA4B00009022 /* Constants.swift in Sources */,
 				13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */,
 				31F34A5626B2B1DD00A183A9 /* NavigationContainer.swift in Sources */,
+				3108440126B2FCFE0027AABB /* SettingsScreen.swift in Sources */,
 				3163E3AB26AEF0B900009022 /* EventStore.swift in Sources */,
 				31F34A5126B1928400A183A9 /* View.swift in Sources */,
+				310843FF26B2FBA70027AABB /* MeetingsList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

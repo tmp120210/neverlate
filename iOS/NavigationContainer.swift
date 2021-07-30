@@ -16,17 +16,16 @@ struct NavigationContainer: View{
                 WelcomeScreen(currentPage: $currentPage)
             case "access":
                 CalendarAccessScreen(currentPage: $currentPage)
-//            case "allow":
-//                AutoLaunchScreen(currentPage: $currentPage)
-//            case "meeting":
-//                MeetingsScreen(currentPage: $currentPage)
-//            case "settings":
-//                SettingsScreen(currentPage: $currentPage)
+            case "meeting":
+                MeetingsScreen(currentPage: $currentPage)
+            case "settings":
+                SettingsScreen(currentPage: $currentPage)
             default:
                 WelcomeScreen(currentPage: $currentPage)
             }
 
         }
+        .padding()
         .background(Color("appBackground"))
 
     }
