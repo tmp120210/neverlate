@@ -25,7 +25,8 @@ struct WelcomeScreen: View {
             Spacer()
             Button(action: {self.currentPage = "access"}, label: {
                 Text("Continue")
-                    .fontWeight(.regular)
+                    .fontWeight(.medium)
+                    .font(.system(size: 17))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .background(Color("lightButton"))

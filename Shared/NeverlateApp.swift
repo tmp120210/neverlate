@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-
+        let eventStore = EKEventStore()
         let startScreen = EKEventStore.authorizationStatus(for: .event) == EKAuthorizationStatus.authorized ? "meeting" : "welcome"
         let menuView = NavigationContainer(currentPage: startScreen)
         UNUserNotificationCenter.current().delegate = self
@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withLength: CGFloat(NSStatusItem.variableLength))
         
         if let MenuButton = StatusItem?.button{
-            MenuButton.image = NSImage(named: "settings")
+            MenuButton.image = NSImage(named: "meeting_icon")
             MenuButton.action = #selector(menuButtonToggle)
             if startScreen != "meeting"{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -48,6 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
         }
+        eventStore.getAllowed()
         loadNotifications()
         
     }

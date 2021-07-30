@@ -24,41 +24,58 @@ struct SettingsScreen: View {
     @State var accounts : [String: [EKCalendar]] = [:]
     var body : some View {
         VStack() {
-            HStack(alignment: .center, spacing: 16.0){
-                Button(action: {
-                    self.currentPage = "meeting"
-                })
-                {
-                    Image("chevron.left")
-                        .resizable(resizingMode: .stretch)
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 26)
-                        .foregroundColor(.primary)
-                    
+            ZStack{
+                HStack(alignment: .center, spacing: 8){
+                    Button(action: {
+                        self.currentPage = "meeting"
+                    })
+                    {
+                        HStack{
+                            Image("chevron.left")
+                                .resizable(resizingMode: .stretch)
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 12, height: 20)
+                                .foregroundColor(.primary)
+                            Text("Back")
+                                .font(.system(size: 17, weight: .regular))
+                        }
+                        
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
+                .padding(.vertical)
+                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 Text("Settings")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.custom("SF Pro Display", size: 25))
+                    .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .padding(.leading, 0.0)
-            .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
-            ScrollView{
+            
+            ScrollView(showsIndicators: false){
                 Toggle(isOn: launchAtLogin){
                     Text("Launch at System startup")
+                        .padding()
                         .font(.system(size: 18, weight: .regular))
                         .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 }
+                .padding(.trailing)
+                .rowStyle(backgroundColor: Color("listBackground"))
                 .toggleStyle(SwitchToggleStyle())
-                .padding(.trailing, 16.0)
                 
-                VStack() {
+                Section(header:
+                            Text("CONNECTED ACCOUNTS")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 10, weight: .medium))
+                            .padding(.top)
+                            .sectionHeader()
+                        
+                ) {
                     ForEach(Array(accounts.keys), id: \.self){acc in
                         AccountSection(account: acc, calendars: self.accounts[acc]!)
                         
                     }
                 }
                 .padding(.top, 10.0)
-                .padding(.trailing, 16)
                 
                 Spacer()
             }
@@ -68,9 +85,12 @@ struct SettingsScreen: View {
             {
                 Text("Quit the App")
                     .font(.system(size: 17, weight: .regular))
-                    .foregroundColor(.red)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .background(Color.red)
                 
             }
+            .cornerRadius(10)
             .buttonStyle(PlainButtonStyle())
         }
         .onAppear{
@@ -86,34 +106,24 @@ struct SettingsScreen: View {
 struct AccountSection: View {
     var account: String
     var calendars: [EKCalendar]
-    var body: some View {
-        Section(
-            header: Text(account)
-                .foregroundColor(.gray)
-                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, minHeight: 0, idealHeight: 10, maxHeight: .infinity, alignment: .leading)
-        )
-        {
-            ForEach(calendars, id: \.self){calendar in
-                Calendars(calendar: calendar)
-            }
-            
-            
-        }
-        
-    }
-}
-
-struct Calendars: View {
-    var calendar: EKCalendar
-    @State private var allowedCalendars: [String] = UserDefaults.standard.stringArray(forKey: "allowedCalendars") ?? []
     private var isAllow: Binding<Bool> { Binding (
-        get: { return UserDefaults.standard.bool(forKey: calendar.title) },
+        get: {
+            return UserDefaults.standard.bool(forKey: account)
+            
+        },
         set: { value in
-            UserDefaults.standard.set(value, forKey: calendar.title)
+            UserDefaults.standard.set(value, forKey: account)
             if(value){
-                addAllowedCalendars(id: calendar.calendarIdentifier)
+                for calendar in calendars{
+                    addAllowedCalendars(id: calendar.calendarIdentifier)
+                }
+                
+                
             }else{
-                removeAllowedCalendars(id: calendar.calendarIdentifier)
+                for calendar in calendars{
+                    removeAllowedCalendars(id: calendar.calendarIdentifier)
+                }
+                
             }
             loadNotifications()
         }
@@ -122,11 +132,14 @@ struct Calendars: View {
     var body: some View {
         HStack{
             Toggle(isOn: isAllow){
-                Text(calendar.title)
+                Text(account)
+                    .padding()
                     .font(.system(size: 18, weight: .regular))
                     .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity,alignment: .leading)
                 
             }
+            .padding(.trailing)
+            .rowStyle(backgroundColor: Color("listBackground"))
             .toggleStyle(SwitchToggleStyle())
             
             

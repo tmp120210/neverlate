@@ -12,7 +12,7 @@
 		13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CE8CF92693114F00806010 /* WelcomeScreen.swift */; };
 		13CE8D0F2693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
-		13CE8D102693115100806010 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
+		310843FE26B2ED9C0027AABB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 		3115F9DE26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		3115F9DF26A5A900006F969A /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3115F9DD26A5A900006F969A /* SettingsScreen.swift */; };
 		312CD3ED26932B7B000CF3CD /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 312CD3EC26932B7B000CF3CD /* Colors.xcassets */; };
@@ -38,6 +38,10 @@
 		31B42ED926A16E4A00017C77 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B42ED826A16E4A00017C77 /* main.swift */; };
 		31B42EDB26A16ED300017C77 /* AutoLauncher.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31B42EC826A16BFB00017C77 /* AutoLauncher.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		31B42EDE26A16EEA00017C77 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */; };
+		31F34A5126B1928400A183A9 /* View+SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View+SectionHeader.swift */; };
+		31F34A5226B1928400A183A9 /* View+SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5026B1928400A183A9 /* View+SectionHeader.swift */; };
+		31F34A5E26B2C79100A183A9 /* View+RowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34A5D26B2C79100A183A9 /* View+RowStyle.swift */; };
+		31F34A5F26B2E6ED00A183A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CE8CFA2693115100806010 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +83,8 @@
 		31B42ED426A16BFC00017C77 /* AutoLauncher.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoLauncher.entitlements; sourceTree = "<group>"; };
 		31B42ED826A16E4A00017C77 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		31B42EDD26A16EEA00017C77 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		31F34A5026B1928400A183A9 /* View+SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SectionHeader.swift"; sourceTree = "<group>"; };
+		31F34A5D26B2C79100A183A9 /* View+RowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+RowStyle.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +177,8 @@
 			children = (
 				3163E3A426A9A6D500009022 /* Notification.swift */,
 				3163E3AA26AEF0B900009022 /* EventStore.swift */,
+				31F34A5026B1928400A183A9 /* View+SectionHeader.swift */,
+				31F34A5D26B2C79100A183A9 /* View+RowStyle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -303,8 +311,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13CE8D102693115100806010 /* Assets.xcassets in Resources */,
 				3163E3D926B1539900009022 /* Main.storyboard in Resources */,
+				31F34A5F26B2E6ED00A183A9 /* Assets.xcassets in Resources */,
 				312CD3EE26932B7B000CF3CD /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +321,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310843FE26B2ED9C0027AABB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +340,7 @@
 				3163E3A826AADA4B00009022 /* Constants.swift in Sources */,
 				13CE8D0D2693115100806010 /* WelcomeScreen.swift in Sources */,
 				3163E3AB26AEF0B900009022 /* EventStore.swift in Sources */,
+				31F34A5126B1928400A183A9 /* View+SectionHeader.swift in Sources */,
 				312CD3FF2695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,
 				312CD3FC2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */,
 				13CE8D0B2693115100806010 /* NeverlateApp.swift in Sources */,
@@ -341,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31F34A5E26B2C79100A183A9 /* View+RowStyle.swift in Sources */,
 				3115F9DF26A5A900006F969A /* SettingsScreen.swift in Sources */,
 				312CD40326970657000CF3CD /* MeetingsList.swift in Sources */,
 				3163E3A626A9A81D00009022 /* Notification.swift in Sources */,
@@ -349,6 +360,7 @@
 				3163E3A926AADA4B00009022 /* Constants.swift in Sources */,
 				13CE8D0E2693115100806010 /* WelcomeScreen.swift in Sources */,
 				3163E3AC26AEF0B900009022 /* EventStore.swift in Sources */,
+				31F34A5226B1928400A183A9 /* View+SectionHeader.swift in Sources */,
 				312CD4002695C3FA000CF3CD /* AutoLaunchScreen.swift in Sources */,
 				312CD3FD2695C256000CF3CD /* CalendarAccessScreen.swift in Sources */,
 				13CE8D0C2693115100806010 /* NeverlateApp.swift in Sources */,
