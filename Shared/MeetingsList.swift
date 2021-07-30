@@ -169,24 +169,32 @@ struct OngoingRow: View {
     
     var body: some View {
         let updated = meeting.title.replacingOccurrences(of: "Zoom meeting invitation - ", with: "")
-        HStack(alignment: .center){
-            Text("Now")
-                .font(.system(size: 16, weight: .regular))
-                .frame(alignment: .leading)
-                .foregroundColor(.white)
-                .padding()
-            Text(updated)
-                .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, alignment: .leading)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.white)
-                .lineLimit(1)
-            Image("meeting_icon")
-                .padding(.horizontal)
+        ZStack{
+            HStack(alignment: .center){
+                Text("Now")
+                    .font(.system(size: 16, weight: .regular))
+                    .frame(alignment: .leading)
+                    .foregroundColor(.white)
+                    .padding()
+                Text(updated)
+                    .frame(minWidth: 0, idealWidth: .infinity, maxWidth: .infinity, alignment: .leading)
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+                Image("meeting_icon")
+                    .padding(.horizontal)
+            }
+            .rowStyle(backgroundColor: Color.accentColor)
+            .onTapGesture {
+                openMeetingLink(appLink: meeting.url.appLink, browserLink: meeting.url.browserLink)
+            }
+            if !meeting.accepted {
+                Divider()
+                    .background(Color("declinedText"))
+                    .padding(.horizontal)
+            }
         }
-        .rowStyle(backgroundColor: Color.accentColor)
-        .onTapGesture {
-            openMeetingLink(appLink: meeting.url.appLink, browserLink: meeting.url.browserLink)
-        }
+        
     }
 }
 
