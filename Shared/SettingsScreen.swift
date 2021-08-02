@@ -79,10 +79,11 @@ struct SettingsScreen: View {
                 
                 Spacer()
             }
+            #if os(macOS)
             Button(action: {
-                #if os(macOS)
+                
                 NSApplication.shared.terminate(self)
-                #endif
+                
             })
             {
                 Text("Quit the App")
@@ -94,6 +95,7 @@ struct SettingsScreen: View {
             }
             .cornerRadius(10)
             .buttonStyle(PlainButtonStyle())
+            #endif
         }
         .onAppear{
             self.accounts = eventStore.getCalendars()
