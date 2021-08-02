@@ -59,7 +59,7 @@ func loadMeetings() -> [MeetingDate]{
                 formater.dateFormat = "EEEE, d MMMM yyyy"
                 let date = formater.string(from: event.startDate)
                 if dates[date] == nil {dates[date] = []}
-                if((event.startDate < Date() &&  event.endDate > Date()) && accepted){
+                if((event.startDate < Date() &&  event.endDate > Date())){
                     ongoing.append(Meeting(id: event.eventIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!, accepted: accepted))
                 }else{
                     dates[date]?.append(Meeting(id: event.calendarItemIdentifier, title: event.title, startDate: event.startDate, endDate: event.endDate, url: link!, accepted: accepted))
