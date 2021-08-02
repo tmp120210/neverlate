@@ -1,8 +1,8 @@
 //
-//  App.swift
-//  Neverlate
+//  NavigationContainer.swift
+//  Neverlate (iOS)
 //
-//  Created by Александр Северюхин on 07.07.2021.
+//  Created by Александр Северюхин on 29.07.2021.
 //
 
 import SwiftUI
@@ -16,8 +16,6 @@ struct NavigationContainer: View{
                 WelcomeScreen(currentPage: $currentPage)
             case "access":
                 CalendarAccessScreen(currentPage: $currentPage)
-            case "allow":
-                AutoLaunchScreen(currentPage: $currentPage)
             case "meeting":
                 MeetingsScreen(currentPage: $currentPage)
             case "settings":
@@ -25,11 +23,11 @@ struct NavigationContainer: View{
             default:
                 WelcomeScreen(currentPage: $currentPage)
             }
-            
+
         }
-        .frame(width: 320, height: 540)
+        .padding()
         .background(Color("appBackground"))
-        
+
     }
 }
 

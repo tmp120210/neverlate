@@ -49,7 +49,6 @@ struct AutoLaunchScreen: View {
             }
             
         }
-        .frame(width: 320, height: 540)
         .padding(.horizontal, 16.0)
         .padding(.vertical, 32.0)
         

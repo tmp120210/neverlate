@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+#if os(macOS)
 import ServiceManagement
+#endif
 import EventKit
 
 struct SettingsScreen: View {
     let eventStore = EKEventStore()
     @Binding var currentPage: String
+    #if os(macOS)
     private var launchAtLogin: Binding<Bool> { Binding (
         get: { return UserDefaults.standard.bool(forKey: "launchAtLogin") },
         set: { value in
@@ -21,6 +24,7 @@ struct SettingsScreen: View {
         }
     )
     }
+    #endif
     @State var accounts : [String: [EKCalendar]] = [:]
     var body : some View {
         VStack() {
@@ -52,6 +56,7 @@ struct SettingsScreen: View {
             }
             
             ScrollView(showsIndicators: false){
+                #if os(macOS)
                 Toggle(isOn: launchAtLogin){
                     Text("Launch at System startup")
                         .padding()
@@ -61,7 +66,7 @@ struct SettingsScreen: View {
                 .padding(.trailing)
                 .rowStyle(backgroundColor: Color("listBackground"))
                 .toggleStyle(SwitchToggleStyle())
-                
+                #endif
                 Section(header:
                             Text("CONNECTED ACCOUNTS")
                             .foregroundColor(.gray)
@@ -79,8 +84,11 @@ struct SettingsScreen: View {
                 
                 Spacer()
             }
+            #if os(macOS)
             Button(action: {
+                
                 NSApplication.shared.terminate(self)
+                
             })
             {
                 Text("Quit the App")
@@ -92,11 +100,11 @@ struct SettingsScreen: View {
             }
             .cornerRadius(10)
             .buttonStyle(PlainButtonStyle())
+            #endif
         }
         .onAppear{
             self.accounts = eventStore.getCalendars()
         }
-        .frame(width: 320, height: 540)
         .padding(.horizontal, 16.0)
         .padding(.vertical, 32.0)
         

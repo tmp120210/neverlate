@@ -127,6 +127,7 @@ func loadNotifications(){
 
 
 func openMeetingLink(appLink: URL?, browserLink: URL){
+    #if os(macOS)
     if appLink != nil {
         if NSWorkspace.shared.open(appLink!) {
             print("opened in app")
@@ -138,6 +139,20 @@ func openMeetingLink(appLink: URL?, browserLink: URL){
         NSWorkspace.shared.open(browserLink)
         print("open in browser")
     }
+    #else
+    if appLink != nil {
+        if UIApplication.shared.canOpenURL(appLink!){
+            UIApplication.shared.open(appLink!, options: [:], completionHandler: nil)
+            print("opened in app")
+        }else{
+            UIApplication.shared.open(browserLink, options: [:], completionHandler: nil)
+            print("Cant open in app, open in browser")
+        }
+    }else{
+        UIApplication.shared.open(browserLink, options: [:], completionHandler: nil)
+        print("open in browser")
+    }
+    #endif
 }
 
 func getParticipantStatus(_ event: EKEvent) -> EKParticipantStatus? {
@@ -153,6 +168,15 @@ func getParticipantStatus(_ event: EKEvent) -> EKParticipantStatus? {
 
 func findLink (event: EKEvent) -> MeetingLink? {
     guard let notes = event.notes else {return nil}
+    let msLiveRange = notes.range(of: msLivePattern.pattern, options: .regularExpression)
+    if msLiveRange != nil {
+        let link = notes[msLiveRange!]
+        guard let url = URL(string: String(link)) else {return nil}
+        let urlString = "\(link.replacingOccurrences(of: "/teams.live.com/", with: ""))?fqdn=teams.live.com"
+        var teamsLiveAppUrl = URLComponents(url: URL(string: urlString)!, resolvingAgainstBaseURL: false)!
+        teamsLiveAppUrl.scheme = "msteams"
+        return MeetingLink(browserLink: url, appLink: teamsLiveAppUrl.url)
+    }
     for pattern in patterns{
         let linkRange = notes.range(of: pattern.pattern, options: .regularExpression)
         if linkRange != nil {
@@ -170,11 +194,6 @@ func findLink (event: EKEvent) -> MeetingLink? {
                 var teamsAppURL = URLComponents(url: url, resolvingAgainstBaseURL: false)!
                 teamsAppURL.scheme = "msteams"
                 return MeetingLink(browserLink: url, appLink: teamsAppURL.url)
-            case "msLive":
-                let urlString = "\(link.replacingOccurrences(of: "/teams.live.com/", with: ""))?fqdn=teams.live.com"
-                var teamsLiveAppUrl = URLComponents(url: URL(string: urlString)!, resolvingAgainstBaseURL: false)!
-                teamsLiveAppUrl.scheme = "msteams"
-                return MeetingLink(browserLink: url, appLink: teamsLiveAppUrl.url)
             default:
                 return nil
             }
