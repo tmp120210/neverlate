@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withLength: CGFloat(NSStatusItem.variableLength))
         
         if let MenuButton = StatusItem?.button{
-            MenuButton.image = NSImage(named: "meeting_icon")
+            MenuButton.image = NSImage(named: "menuButton")
             MenuButton.action = #selector(menuButtonToggle)
             if startScreen != "meeting"{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
